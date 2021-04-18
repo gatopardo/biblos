@@ -1,0 +1,69 @@
+  {{define "title"}}  Listar Cuentas
+   {{end}}
+   {{define "head"}}  
+   {{end}}
+
+   {{define "pagi"}}
+     <div class="cwrapper">
+        {{ range $index, $btn := .slice }}
+            {{if eq $btn $.current}}
+               <div class="button color2">
+                  <a class="label" href="/user/list/{{$btn}}"> << {{$btn}} >></a>
+            {{else}}
+               <div class="button color1">
+                  <a class="label" href="/user/list/{{$btn}}"> {{$btn}}</a>
+            {{end}}
+               </div>
+         {{end}}
+     </div>
+   {{end}}
+
+
+  {{define "content"}}
+      {{template "pagi"    .  }}
+      <div class="lwidth">
+          <h3 class="center"> {{template "title" . }} </h3>
+	  <div class="lwrapper fcols3">
+             <div class="box"> Cuenta      </div>
+             <div class="box"> Nivel	   </div>
+             {{ if or ( eq .level 3)  ( eq .level 4)}}
+                <div class="box">   
+                  <span class="right">
+                    <a class="btn btn-warning" href ="#">  Ed </a> 
+                  </span>
+                </div>
+             {{end}} 
+             {{ if eq .level 5}}
+                <div class="box">   
+                  <span class="right">
+                  <a class="btn btn-warning" href ="#">  Ed </a> 
+                  <a class="btn btn-warning" href ="#">  Del </a> 
+                  </span>
+                </div>
+             {{end}} 
+      </div>
+      {{  range  .LisRegis}}
+         <div class="lwrapper fcols3">
+           <div class="box"> {{ .User.Cuenta }} </div>
+           <div class="box"> {{ .User.Level }} </div>
+           {{ if or ( eq .Level 3)  ( eq .Level 4)}}
+              <div class="box">
+                <span class="right">
+                <a class="btn btn-warning" href="/user/update/{{.User.Id}}/{{.Pagi}}" > Ed </a>
+                </span>
+              </div>
+           {{end}} 
+           {{ if eq .Level 5}}
+              <div class="box">
+                <span class="right">
+                    <a class="btn btn-warning" href="/user/update/{{.User.Id}}/{{.Pagi}}" > Ed </a>
+                   <a class="btn btn-danger" href="/user/delete/{{.User.Id}}/{{.Pagi}}" > Del </a>
+                </span>
+              </div>
+           {{end}} 
+         </div>
+      {{end}}
+      {{template "footer" .}}
+  {{end}}
+
+{{define "foot"}}{{end}}

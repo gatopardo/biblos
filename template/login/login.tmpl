@@ -1,0 +1,47 @@
+{{define "title"}}Login{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+    <div class="container">
+	<div class="page-header">
+		<h1>{{template "title" .}}</h1>
+	</div>
+	<form method="post">
+           <div class="fwrapper fcols2">
+	     <div class="fbox">
+                <label for="cuenta">Cuenta</label>
+             </div>
+	     <div class="fbox">
+                <input type="text" id="cuenta" name="cuenta" maxlength="48" placeholder="Cuenta" value = "" autofocus />
+             </div>
+            </div>
+
+           <div class="fwrapper fcols2">
+	     <div class="fbox">
+                <label for="password">Password</label>
+             </div>
+	     <div class="fbox">
+                <input type="password"  id="password" name="password" maxlength="48" placeholder="Password" value="{{.password}}" />
+             </div>
+            </div>
+
+           <div class="fwrapper fcols2">
+	     <div class="fbox">
+                     <input type="hidden" name="token" value="{{.token}}">
+             </div>
+	     <div class="fbox">
+                 <input type="submit" class="btn btn-primary" value="Login" />
+             </div>
+            </div>
+
+	</form>
+<!---
+	<p style="margin-top: 15px;">
+	{{LINK "register" "Crear Nueva Cuenta."}}
+	</p>
+-->	
+	{{template "footer" .}}
+</div>
+
+{{end}}
+{{define "foot"}}<h3>Formulario para Entrar</h3>{{end}}

@@ -1,0 +1,97 @@
+  {{define "title"}}
+         Eliminar Libro
+  {{end}}
+
+  {{define "head"}}
+  {{end}}
+
+ {{define "content"}}
+
+   <div class="fcontent" >
+
+       <h3 class="mcenter" >  {{ template "title"  .}} </h3>
+
+       <form method="post">
+
+        <div class="fwrapper fcols2">
+          <div class="fbox">
+              <label for="title" > Title </label>
+          </div >
+          <div class="fbox" >
+            <input type="text" id="title" name="title" size="40" maxlength="48" value="{{.title}}" readonly />
+          </div>
+       </div>
+
+       <div class="fwrapper fcols2" >
+           <div class="fbox" >
+             <label for="language" >Language</label>
+           </div >
+           <div class="fbox" >
+               <input type="text" name="language" size="16" maxlength="32" value="{{ .langName }}" readonly>
+           </div>
+       </div>
+
+       <div class="fwrapper fcols2" >
+		<div class="fbox" >
+		   <label for="editor" >Editor</label>
+		</div >
+		<div class="fbox" >
+                 <input type="text" name="editor" size="24" maxlength="32" value="{{.editName }}" readonly>
+                </div>
+	</div>
+
+	<div class="fwrapper fcols2" >
+		<div class="fbox" >
+	    	   <label for="author" >Author</label>
+		</div >
+		<div class="fbox" >
+                  <input type="text" name="author" size="24" maxlength="32" value="{{.authName }}" readony >
+                </div>
+	</div>
+
+	<div class="fwrapper fcols2" >
+		<div class="fbox" >
+		    <label for="comment" >comment</label>
+		</div >
+		<div class="fbox" >
+              <input type="text" id="comment" name="comment" size="32" maxlength="48"  value="{{.comment}}" readonly/>
+                </div>
+	</div>
+
+	<div class="fwrapper fcols2" >
+		<div class="fbox" >
+		   <label for="isbn" >isbn</label>
+		</div > 
+		<div class="fbox" >
+                <input type="text" id="isbn" name="isbn" size="16"  maxlength="16" value="{{.isbn}}" readonly/>
+                 </div>
+	</div>
+
+	<div class="fwrapper fcols2" >
+		<div class="fbox" >
+		  <label for="year" >year</label>
+		</div >
+		<div class="fbox" >
+                 <input type="text" id="year" name="year" size="8" maxlength="8" value="{{.year}}" readonly/>
+                </div>
+	</div>
+
+	<div class="fwrapper fcols2" >
+		<div class="fbox" >
+		   <input type="hidden" name="token" value="{{.token}}">
+                </div>
+		<div class="fbox" >
+                   <span>
+                   <input type="submit" name="action" value="Eliminar" />
+                   <input type="submit" name="action" value="Cancelar" />
+                   </span>
+                </div>
+	 </div>
+     
+	</form>
+
+	{{template "footer" .}}
+   </div>
+
+{{end}}
+{{define "foot"}}{{end}}

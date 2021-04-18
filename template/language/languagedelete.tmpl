@@ -1,0 +1,45 @@
+{{define "title"}}Eliminar Lenguaje{{end}}
+{{define "head"}} {{end}}
+
+{{define "content"}}
+    <div class="container">
+	<h3 class="mcenter">{{template "title" .}}</h3>
+
+     <form method="post">
+
+        <div class="fwrapper fcols2">
+            <div class="fbox">
+                <label for="name">Name</label>
+            </div>
+	    <div class="fbox">
+                <input type="text" id="name" name="name" size="32" maxlength="48" placeholder="Name" value="{{.name}}" readonly />
+            </div>
+        </div>   
+
+        <div class="fwrapper fcols2">
+	    <div class="fbox">
+		<label for="cantidad">Cantidad Libros</label>
+            </div>
+	    <div class="fbox">
+		<input type="text" id="cantidad" name="cantidad" size="6" maxlength="12" placeholder="Cant" value="{{.canti}}" readonly />
+            </div>
+          </div>
+
+        <div class="fwrapper fcols2">
+	    <div class="fbox">
+                 <input type="hidden" name="token" value="{{.token}}">
+             </div>
+
+	     <div class="fbox">
+                <span>
+                    <input type="submit" name="action" value="Eliminar" />
+                    <input type="submit" name="action" value="Cancelar" />
+                </span>
+             </div>
+        </div>
+
+     </form>
+	{{template "footer" .}}
+   </div>
+{{end}}
+       {{define "foot"}}  {{end}}

@@ -1,0 +1,73 @@
+  {{define "title"}}
+        Listar Lenguajes
+  {{end}}
+
+{{define "head"}}  
+ 
+{{end}}
+
+ {{define "pagi"}}
+     <div class="cwrapper">
+        {{$NPag := .current}}
+        {{ range $index, $btn := .slice }}
+            {{if eq $btn $NPag}}
+               <div class="button color2">
+                 <a class="label" href="/language/list/{{$btn}}"> <<{{$btn}}>></a>
+               </div>
+            {{else}}
+               <div class="button color2">
+                 <a class="label" href="/language/list/{{$btn}}"> {{$btn}}</a>
+               </div>
+            {{end}}
+        {{end}}
+     </div>
+ {{end}}
+
+
+  {{define "content"}}
+     {{template "pagi"   .  }}
+     <div class="lwidth">
+         <h3 class="center"> Listar Lenguajes </h3>
+        {{$NLev := .Level}}
+        {{$NPag := .current}}
+         <div class="lwrapper fcols1">
+            <div class="box"> Name </div>
+            {{ if or ( eq $NLev 3)  ( eq $NLev 4 ) }}
+                <div class="box">
+                  <a class="btn btn-warning" href ="#">  Ed </a> 
+                </div>
+            {{end}} 
+            {{ if eq $NLev 5}}
+                <div class="box"> 
+                 <span class="right">
+                  <a class="btn btn-warning" href ="#">  Ed </a> 
+                  <a class="btn btn-danger" href ="#">  Del </a> 
+                 </span>
+                </div>
+            {{end}} 
+      </div>
+      {{  range  .LisLang}}
+         <div class="lwrapper fcols1">
+             <div class="box">
+                <a  href="/biblos/lang/list/{{.Lang.Id}}/1/{{$NPag}}">{{.Lang.Name}}</a>
+             </div>
+             {{ if or ( eq $NLev 3)  ( eq $NLev 4 ) }}
+                <div class="box">
+                 <a class="btn btn-warning" href="/language/update/{{.Lang.Id}}/{{$NPag}}" > Ed </a>
+               </div>
+            {{end}} 
+            {{ if eq $NLev 5}}
+               <div class="box">
+                 <span class="right">
+                 <a class="btn btn-warning" href="/language/update/{{.Lang.Id}}/{{$NPag}}" > Ed </a>
+                  <a class="btn btn-danger" href="/language/delete/{{.Lang.Id}}/{{$NPag}}">  Del </a>
+                 </span>
+               </div>
+            {{end}} 
+         </div>
+         {{end}}
+	{{template "footer" .}}
+      </div>
+    {{end}}
+
+    {{define "foot"}}{{end}}
