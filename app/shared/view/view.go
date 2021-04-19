@@ -12,7 +12,7 @@ import (
 	"strings"
 	"sync"
 
-	"app/model"
+	"github.com/gatopardo/biblos/app/model"
  )
 
 func init() {

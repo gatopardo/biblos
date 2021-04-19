@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"app/model"
-	"app/shared/passhash"
-	"app/shared/view"
+	"github.com/gatopardo/biblos/app/model"
+	"github.com/gatopardo/biblos/app/shared/passhash"
+	"github.com/gatopardo/biblos/app/shared/view"
 
 	"github.com/gorilla/sessions"
 	"github.com/josephspurrier/csrfbanana"

@@ -7,8 +7,8 @@ import (
 	"strconv"
         "fmt"
 
-	"app/model"
-	"app/shared/view"
+	"github.com/gatopardo/biblos/app/model"
+	"github.com/gatopardo/biblos/app/shared/view"
 
         "github.com/gorilla/context"
 	"github.com/josephspurrier/csrfbanana"

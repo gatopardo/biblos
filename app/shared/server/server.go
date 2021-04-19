@@ -8,7 +8,7 @@ import (
         "os"
         "strconv"
 
-        "app/route"
+        "github.com/gatopardo/biblos/app/route"
 )
 
 // Server stores the hostname and port number

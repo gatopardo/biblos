@@ -3,8 +3,8 @@ package controller
 import (
 	"net/http"
 
-	"app/model"
-	"app/shared/view"
+	"github.com/gatopardo/biblos/app/model"
+	"github.com/gatopardo/biblos/app/shared/view"
 )
 
 // IndexGET displays the home page

@@ -2,7 +2,7 @@ package acl
 
 import (
 	"net/http"
-	"app/model"
+	"github.com/gatopardo/biblos/app/model"
 )
 
 // DisallowAuth does not allow authenticated users to access the page

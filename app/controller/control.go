@@ -1,7 +1,7 @@
 package controller
 
 import (
-        "app/model"
+        "github.com/gatopardo/biblos/app/model"
         "fmt"
         "strconv"
         "strings"

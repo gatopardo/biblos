@@ -4,12 +4,12 @@ import (
 	"net/http"
         "log"
 
-	"app/controller"
-	"app/route/middleware/acl"
-	hr "app/route/middleware/httprouterwrapper"
-	"app/route/middleware/logrequest"
-	"app/route/middleware/pprofhandler"
-	"app/model"
+	"github.com/gatopardo/biblos/app/controller"
+	"github.com/gatopardo/biblos/app/route/middleware/acl"
+	hr "github.com/gatopardo/biblos/app/route/middleware/httprouterwrapper"
+	"github.com/gatopardo/biblos/app/route/middleware/logrequest"
+	"github.com/gatopardo/biblos/app/route/middleware/pprofhandler"
+	"github.com/gatopardo/biblos/app/model"
 
 	"github.com/gorilla/context"
 	"github.com/josephspurrier/csrfbanana"
