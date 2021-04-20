@@ -49,7 +49,8 @@ const (
 
 // Info contains the database configurations
 type Info struct {
-         Origin  string
+        Remote  bool
+//         Origin  string
 	// Database type
 	Type Type
 	// MySQL info if used
@@ -95,15 +96,15 @@ func MyDSN(ci MySQLInfo) string {
 }
 
   func PgDNS(ci PostgreSQLInfo  ) string {
-         return   fmt.Sprintf("user=%s dbname=%s sslmode=%s",ci.Username, ci.Name, ci.Parameter)
+        return   fmt.Sprintf("user=%s dbname=%s port=%d sslmode=%s",ci.Username, ci.Name, ci.Port, ci.Parameter)
      }
 // Connect to the database
 func Connect(d Info) {
 	var err error
 	// Store the config
 	databases = d
-        if d.Origin == "heroku" {
-
+//        if d.Origin == "heroku" {
+        if d.Remote  {
           regex := regexp.MustCompile("(?i)^postgres://(?:([^:@]+):([^@]*)@)?([^@/:]+):(\\d+)/(.*)$")
           matches := regex.FindStringSubmatch(os.Getenv("DATABASE_URL"))
 	  if matches == nil {

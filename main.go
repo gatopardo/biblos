@@ -17,13 +17,13 @@ import (
          "github.com/gatopardo/biblos/app/shared/view/plugin"
 )
 
+var  file  * os.File
 
 // *****************************************************************************
 // Application Logic
 // *****************************************************************************
 
 func init() {
-        var  file  * os.File
 	// Verbose logging with file name and line number
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
         var  err error
@@ -49,6 +49,7 @@ func main() {
 	// Connect to database
 	model.Connect(config.Database)
         defer model.Db.Close()
+        defer file.Close()
 
 	// Configure the Google reCAPTCHA prior to loading view plugins
 	recaptcha.Configure(config.Recaptcha)

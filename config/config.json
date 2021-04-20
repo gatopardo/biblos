@@ -1,5 +1,6 @@
    {
 	"Database": {
+                "Remote"     : true,
                 "Origin": "localhost",
 		"Type": "PostgreSQL",
 		"PostgreSql": {
@@ -7,7 +8,7 @@
 			"Password": "",
 			"Name": "dbbiblos",
 			"Hostname": "127.0.0.1",
-			"Port": 5433,
+			"Port": 5434,
 			"Parameter": "disable"
 		},
 		"MySQL": {
@@ -21,6 +22,7 @@
 
 	},
 	"Server": {
+                "Remote"     : true,
                 "Origin": "localhost",
 		"Hostname": "0.0.0.0",
 		"UseHTTP": true,
