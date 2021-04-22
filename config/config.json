@@ -1,6 +1,6 @@
    {
 	"Database": {
-                "Remote"     : true,
+                "Remote": true,
                  "Origin": "heroku",
 		"Type": "PostgreSQL",
 		"PostgreSql": {
@@ -22,7 +22,7 @@
 
 	},
 	"Server": {
-                "Remote"     : true,
+                "Remote": true,
                 "Origin": "heroku",
 		"Hostname": "0.0.0.0",
 		"UseHTTP": true,
