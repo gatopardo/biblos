@@ -34,6 +34,7 @@ func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
               s.HTTPPort  = iport
               s.HTTPSPort = iport
               s.Hostname  = ""
+	      s.Origin    =  "heroku"
          }
         route.Flogger.Println(httpsAddress(s))
 	if s.UseHTTP && s.UseHTTPS {

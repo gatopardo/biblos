@@ -1,1 +1,1 @@
-web: biblos
+web: /bin/biblos

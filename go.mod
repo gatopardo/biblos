@@ -12,7 +12,9 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/jung-kurt/gofpdf v1.16.2
 	github.com/justinas/alice v1.2.0
+	github.com/kr/fs v0.1.0 // indirect
 	github.com/lib/pq v1.10.0
+	github.com/tools/godep v0.0.0-20180126220526-ce0bfadeb516 // indirect
 	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
