@@ -33,16 +33,16 @@ func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
               iport, _   :=  strconv.Atoi(sport)
               s.HTTPPort  = iport
               s.HTTPSPort = iport
-              s.Hostname  = ""
+              s.Hostname  = localhost
          }
         fmt.Println("Server  ", httpsAddress(s))
         route.Flogger.Println(httpsAddress(s))
 	if s.UseHTTP && s.UseHTTPS {
-        fmt.Println("Server ", s.Origin, s.Hostname) 
+        fmt.Println("Server ", s.Origin, s.Hostname, s.HTTPPort) 
 		go func() {
 			startHTTPS(httpsHandlers, s)
 		}()
-        fmt.Printf("Server al origen 3 %s y puerto %d \n", s.Origin, s.HTTPPort) 
+        fmt.Println("Server 3 ",httpAddres(s)) 
 
 		startHTTP(httpHandlers, s)
         fmt.Printf("Server al origen 4 %s y puerto %d \n", s.Origin, s.HTTPPort) 
