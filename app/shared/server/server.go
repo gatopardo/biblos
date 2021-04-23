@@ -32,7 +32,7 @@ func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
               iport, _   :=  strconv.Atoi(sport)
               s.HTTPPort  = iport
               s.HTTPSPort = iport
-              s.Hostname  = "localhost"
+              s.Hostname  = ""
          }
         route.Flogger.Println(httpsAddress(s))
 	if s.UseHTTP && s.UseHTTPS {
