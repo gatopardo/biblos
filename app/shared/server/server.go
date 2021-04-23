@@ -35,11 +35,10 @@ func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
               s.HTTPSPort = iport
               s.Hostname  = ""
          }
-        fmt.Println("Server  ", s)
+        fmt.Println("Server  ", httpsAddress(s))
         route.Flogger.Println(httpsAddress(s))
-        fmt.Printf("Server al origen %s y puerto %d \n", s.Origin, s.HTTPPort) 
 	if s.UseHTTP && s.UseHTTPS {
-        fmt.Printf("Server al origen 2 %s y puerto %d \n", s.Origin, s.HTTPPort) 
+        fmt.Println("Server ", s.Origin, s.Hostname) 
 		go func() {
 			startHTTPS(httpsHandlers, s)
 		}()
