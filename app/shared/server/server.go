@@ -29,20 +29,22 @@ type Server struct {
 func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
         fmt.Println("Server al inicio ", s.Origin )
 	if s.Remote{
-              sport      := os.Getenv("PORT")
+              sport      :=  os.Getenv("PORT")
               iport, _   :=  strconv.Atoi(sport)
               s.HTTPPort  = iport
               s.HTTPSPort = iport
               s.Hostname  = ""
          }
         route.Flogger.Println(httpsAddress(s))
-        fmt.Println("Server al inicio y puerto", s.Origin, os.Getenv("PORT") )
+        fmt.Printf("Server al origen %s y puerto %d \n", s.Origin, iport) )
 	if s.UseHTTP && s.UseHTTPS {
 		go func() {
 			startHTTPS(httpsHandlers, s)
 		}()
 
 		startHTTP(httpHandlers, s)
+        fmt.Printf("Server al origen 2 %s y puerto %d \n", s.Origin, iport) )
+
 	} else if s.UseHTTP {
 		startHTTP(httpHandlers, s)
 	} else if s.UseHTTPS {
