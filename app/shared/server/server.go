@@ -25,9 +25,8 @@ type Server struct {
 }
 
 // Run starts the HTTP and/or HTTPS listener
-//        s.Origin      ==  "heroku" {
 func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
-        fmt.Println("Server al inicio ", s.Origin )
+        fmt.Println("Server al inicio " )
 	if s.Remote{
               sport      :=  os.Getenv("PORT")
               iport, _   :=  strconv.Atoi(sport)
@@ -35,17 +34,13 @@ func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
               s.HTTPSPort = iport
               s.Hostname  = "localhost"
          }
-        fmt.Println("Server  ", httpsAddress(s))
         route.Flogger.Println(httpsAddress(s))
 	if s.UseHTTP && s.UseHTTPS {
-        fmt.Println("Server ", s.Origin, s.Hostname, s.HTTPPort) 
 		go func() {
 			startHTTPS(httpsHandlers, s)
 		}()
-        fmt.Println("Server 3 ",httpAddress(s)) 
 
 		startHTTP(httpHandlers, s)
-        fmt.Printf("Server al origen 4 %s y puerto %d \n", s.Origin, s.HTTPPort) 
 
 	} else if s.UseHTTP {
 		startHTTP(httpHandlers, s)
