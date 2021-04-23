@@ -35,15 +35,18 @@ func Run(httpHandlers http.Handler, httpsHandlers http.Handler, s Server) {
               s.HTTPSPort = iport
               s.Hostname  = ""
          }
+        fmt.Println("Server  ", s)
         route.Flogger.Println(httpsAddress(s))
         fmt.Printf("Server al origen %s y puerto %d \n", s.Origin, s.HTTPPort) 
 	if s.UseHTTP && s.UseHTTPS {
+        fmt.Printf("Server al origen 2 %s y puerto %d \n", s.Origin, s.HTTPPort) 
 		go func() {
 			startHTTPS(httpsHandlers, s)
 		}()
+        fmt.Printf("Server al origen 3 %s y puerto %d \n", s.Origin, s.HTTPPort) 
 
 		startHTTP(httpHandlers, s)
-        fmt.Printf("Server al origen 2 %s y puerto %d \n", s.Origin, s.HTTPPort) 
+        fmt.Printf("Server al origen 4 %s y puerto %d \n", s.Origin, s.HTTPPort) 
 
 	} else if s.UseHTTP {
 		startHTTP(httpHandlers, s)
