@@ -82,7 +82,7 @@ func LoginPOST(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		fmt.Println(err)
 //		sess.AddFlash(view.Flash{"Ocurrio un error. Favor probar mas tarde.", view.FlashError})
-		sess.AddFlash(view.Flash{cuenta + " " + err, view.FlashError})
+		sess.AddFlash(view.Flash{err , view.FlashError})
 		sess.Save(r, w)
 	} else if passhash.MatchString(user.Password, password) {
 		if user.Level == 0 {
