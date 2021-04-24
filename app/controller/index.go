@@ -12,6 +12,8 @@ func IndexGET(w http.ResponseWriter, r *http.Request) {
 	// Get session
 	session := model.Instance(r)
 
+	if session.Values["id"] != nil {
+        }
 //	if session.Values["id"] != nil {
 //		// Display the view
 //		v := view.New(r)
