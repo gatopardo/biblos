@@ -68,8 +68,10 @@ func LoginPOST(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	// Get database user
          var user  model.User
-         user.Cuenta  = cuenta 
+         user.Cuenta  = cuenta
 	 err := user.UserByCuenta()
+         fmt.Printf("User = %s  pass= %s\n", cuenta, password)
+	 fmt.Println(err)
 	// Determine if user exists
 	if err == model.ErrNoResult {
 		loginAttempt(sess)
@@ -78,7 +80,9 @@ func LoginPOST(w http.ResponseWriter, r *http.Request) {
 	} else if err != nil {
 		// Display error message
 		log.Println(err)
-		sess.AddFlash(view.Flash{"Ocurrio un error. Favor probar mas tarde.", view.FlashError})
+		fmt.Println(err)
+//		sess.AddFlash(view.Flash{"Ocurrio un error. Favor probar mas tarde.", view.FlashError})
+		sess.AddFlash(view.Flash{cuenta + " " + err, view.FlashError})
 		sess.Save(r, w)
 	} else if passhash.MatchString(user.Password, password) {
 		if user.Level == 0 {
