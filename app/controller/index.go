@@ -23,5 +23,5 @@ func IndexGET(w http.ResponseWriter, r *http.Request) {
 		v.Name = "index/anon"
 		v.Render(w)
 		return
-	}
+//	}
 }
