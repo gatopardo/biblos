@@ -67,8 +67,7 @@ func startHTTPS(handlers http.Handler, s Server) {
 	// Start the HTTPS listener
 	if s.Remote {
 		log.Fatal(http.ListenAndServeTLS(httpsAddress(s), handlers))
-        }
-        else {
+        } else {
 	   log.Fatal(http.ListenAndServeTLS(httpsAddress(s), s.CertFile, s.KeyFile, handlers))
        }
 
