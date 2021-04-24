@@ -56,8 +56,8 @@ func startHTTP(handlers http.Handler, s Server) {
 	fmt.Println(time.Now().Format("2006-01-02 03:04:05 PM"), "Running HTTP "+httpAddress(s))
 
 	// Start the HTTP listener
-//	log.Fatal(http.ListenAndServe(httpAddress(s), handlers))
-	log.Fatal(http.ListenAndServe(":" + os.Getenv("PORT"), handlers))
+        log.Fatal(http.ListenAndServe(httpAddress(s), handlers))
+//      log.Fatal(http.ListenAndServe(":" + os.Getenv("PORT"), handlers))
 }
 
 // startHTTPs starts the HTTPS listener
@@ -66,9 +66,9 @@ func startHTTPS(handlers http.Handler, s Server) {
 
 	// Start the HTTPS listener
 	if s.Remote {
-	      log.Fatal(http.ListenAndServeTLS(httpsAddress(s), handlers))
+		log.Fatal(http.ListenAndServeTLS(httpsAddress(s), handlers))
         }
-	else {
+        else {
 	   log.Fatal(http.ListenAndServeTLS(httpsAddress(s), s.CertFile, s.KeyFile, handlers))
        }
 
