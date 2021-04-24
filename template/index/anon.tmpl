@@ -11,10 +11,12 @@
     </p>
 
 	{{template "carousel" .}}
-	<p> Inicio. Pulse {{LINK "register" "aqui"}} para registrar.</p>
-	<p> Inicio. Pulse <a href="/user/register">aqui</a> para registrar.</p>
 <!---
+	<p> Inicio. Pulse {{LINK "register" "aqui"}} para registrar.</p>
+	<p> Inicio. Pulse {{LINK "/user/register" "aqui"}} para registrar.</p>
+	<p> Inicio. Pulse <a href="/user/register">aqui</a> para registrar.</p>
 -->
+	<p> Inicio. Pulse {{LINK "/user/register" "aqui"}} para registrar.</p>
 	{{template "footer" .}}
 </div>
 
