@@ -80,10 +80,10 @@ func routes() *httprouter.Router {
 
 // Register
 	r.GET("/user/register", hr.Handler(alice.
-		New(acl.DisallowAuth).
+		New(acl.DisallowAnon).
 		ThenFunc(controller.RegisterGET)))
 	r.POST("/user/register", hr.Handler(alice.
-		New(acl.DisallowAuth).
+		New(acl.DisallowAnon).
 		ThenFunc(controller.RegisterPOST)))
 //          Register update
 	r.GET("/user/update/:id/:pagi", hr.Handler(alice.

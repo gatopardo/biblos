@@ -8,7 +8,7 @@ import (
 
 	"github.com/gatopardo/biblos/app/model"
 	"github.com/gatopardo/biblos/app/shared/passhash"
-	"github.com/gatopardo/biblos/app/shared/recaptcha"
+//	"github.com/gatopardo/biblos/app/shared/recaptcha"
 	"github.com/gatopardo/biblos/app/shared/view"
 
         "github.com/gorilla/context"
@@ -51,12 +51,12 @@ func RegisterPOST(w http.ResponseWriter, r *http.Request) {
                return
 	   }
            // Validate with Google reCAPTCHA
-	   if !recaptcha.Verified(r) {
-		sess.AddFlash(view.Flash{"reCAPTCHA invalid!", view.FlashError})
-		sess.Save(r, w)
-		RegisterGET(w, r)
-		return
-	   }
+//	   if !recaptcha.Verified(r) {
+//		sess.AddFlash(view.Flash{"reCAPTCHA invalid!", view.FlashError})
+//		sess.Save(r, w)
+//		RegisterGET(w, r)
+//		return
+//	   }
            stUuid := model.CreateUUID()
            // Get form values
            rPasswd         := r.FormValue("password")

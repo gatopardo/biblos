@@ -21,7 +21,7 @@ var (
 	// ErrCode is a config or an internal error
 	ErrCode = errors.New("Sentencia Case en codigo no es correcta.")
 	// ErrNoResult is a not results error
-	ErrNoResult = errors.New("Result  no encontrado.")
+	ErrNoResult = errors.New("No y resultado encontrado.")
 	// ErrUnavailable is a database not available error
 	ErrUnavailable = errors.New("Database no disponible.")
 	// ErrUnauthorized is a permissions violation
@@ -93,11 +93,12 @@ func MyDSN(ci MySQLInfo) string {
 	return ci.Username + ":" + ci.Password + "@tcp(" +
 		ci.Hostname + ":" + fmt.Sprintf("%d", ci.Port) + ")/" +
 		ci.Name + ci.Parameter
-}
+   }
 
   func PgDNS(ci PostgreSQLInfo  ) string {
         return   fmt.Sprintf("user=%s dbname=%s port=%d sslmode=%s",ci.Username, ci.Name, ci.Port, ci.Parameter)
      }
+
 // Connect to the database
 func Connect(d Info) {
 	var err error
@@ -115,10 +116,11 @@ func Connect(d Info) {
 	if sslmode == "" {
 		sslmode = "disable"
 	}
-	spec := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=%s", matches[1], matches[2], matches[3], matches[4], matches[5], sslmode)
+//	spec := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=%s", matches[1], matches[2], matches[3], matches[4], matches[5], sslmode)
 
-          Db, err = sql.Open("postgres", spec)
-          if err != nil {
+//          Db, err = sql.Open("postgres", spec)
+            Db, err =  sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	   if err != nil {
                  log.Println(err)
               }
 
