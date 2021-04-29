@@ -350,13 +350,13 @@ func BookDeleteAll() (err error) {
 	}
 	defer rows.Close()
 	for rows.Next() {
-             book = BookN{} 
+             book = BookN{}
 
              if err = rows.Scan(&book.Id, &book.Language, &book.Editor, &book.Author, &book.Title, &book.Isbn, &book.Comment, &book.Year, &book.CreatedAt, &book.UpdatedAt);  err != nil {
 
 			return
 		}
-            	books = append(books, book)
+               books = append(books, book)
 	}
 
 	return
@@ -367,7 +367,7 @@ func BookDeleteAll() (err error) {
   func BookEditTot(Id uint32) (books []BookN, err error) {
         var book BookN
 
-        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and e.id = $1  order by author, title "   
+        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and e.id = $1  order by author, title "
 
 
 	rows, err := Db.Query(stq,  Id)
@@ -376,13 +376,13 @@ func BookDeleteAll() (err error) {
 	}
 	defer rows.Close()
 	for rows.Next() {
-             book = BookN{} 
+             book = BookN{}
 
              if err = rows.Scan(&book.Id, &book.Language, &book.Editor, &book.Author, &book.Title, &book.Isbn, &book.Comment, &book.Year, &book.CreatedAt, &book.UpdatedAt);  err != nil {
 
 			return
 		}
-            	books = append(books, book)
+             books = append(books, book)
 	}
 
 	return
@@ -393,7 +393,7 @@ func BookDeleteAll() (err error) {
   func BookEditLim(Id uint32,lim int , offs int) (books []BookN, err error) {
         var book BookN
 
-        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and e.id = $3  order by title  LIMIT $1 OFFSET $2"   
+        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and e.id = $3  order by title  LIMIT $1 OFFSET $2"
 
 	rows, err := Db.Query(stq, lim, offs, Id)
 	if err != nil {
@@ -401,13 +401,13 @@ func BookDeleteAll() (err error) {
 	}
 	defer rows.Close()
 	for rows.Next() {
-             book = BookN{} 
+             book = BookN{}
 
              if err = rows.Scan(&book.Id, &book.Language, &book.Editor, &book.Author, &book.Title, &book.Isbn, &book.Comment, &book.Year, &book.CreatedAt, &book.UpdatedAt);  err != nil {
 
 			return
 		}
-            	books = append(books, book)
+                  books = append(books, book)
 	}
 
 	return
@@ -418,7 +418,7 @@ func BookDeleteAll() (err error) {
   func BookLangLim(Id uint32,lim int , offs int) (books []BookN, err error) {
         var book BookN
 
-        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and l.id = $3  order by title  LIMIT $1 OFFSET $2"   
+        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and l.id = $3  order by title  LIMIT $1 OFFSET $2"
 
 	rows, err := Db.Query(stq, lim, offs, Id)
 	if err != nil {
@@ -426,13 +426,13 @@ func BookDeleteAll() (err error) {
 	}
 	defer rows.Close()
 	for rows.Next() {
-             book = BookN{} 
+             book = BookN{}
 
              if err = rows.Scan(&book.Id, &book.Language, &book.Editor, &book.Author, &book.Title, &book.Isbn, &book.Comment, &book.Year, &book.CreatedAt, &book.UpdatedAt);  err != nil {
 
 			return
 		}
-            	books = append(books, book)
+               books = append(books, book)
 	}
 
 	return
@@ -443,7 +443,7 @@ func BookDeleteAll() (err error) {
   func BookLangTot(Id uint32) (books []BookN, err error) {
         var book BookN
 
-        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and l.id = $1  order by author, title "   
+        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and l.id = $1  order by author, title "
 
 	rows, err := Db.Query(stq, Id)
 	if err != nil {
@@ -451,13 +451,13 @@ func BookDeleteAll() (err error) {
 	}
 	defer rows.Close()
 	for rows.Next() {
-             book = BookN{} 
+             book = BookN{}
 
              if err = rows.Scan(&book.Id, &book.Language, &book.Editor, &book.Author, &book.Title, &book.Isbn, &book.Comment, &book.Year, &book.CreatedAt, &book.UpdatedAt);  err != nil {
 
 			return
 		}
-            	books = append(books, book)
+                books = append(books, book)
 	}
 
 	return
@@ -467,7 +467,7 @@ func BookDeleteAll() (err error) {
 // Get all books in the database and returns the list
   func BooksN() (books []BookN, err error) {
      var book BookN
-        stq :=  "SELECT l.name, e.name, a.name, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l, editors e, authors a where b.language_id = l.id and b.editor_id = e.id and b.author_id = a.id   order by title"  
+        stq :=  "SELECT l.name as lang, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l, editors e, authors a where b.language_id = l.id and b.editor_id = e.id and b.author_id = a.id   order by title"  
 	rows, err := Db.Query(stq)
 	if err != nil {
 		return

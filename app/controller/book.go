@@ -578,9 +578,8 @@ func BookEditGET(w http.ResponseWriter, r *http.Request) {
  func BookPdfGET(w http.ResponseWriter, r *http.Request) {
 
       lsBooks, _  := model.BooksN()
-      pdf   := getBookPdf(lsBooks)
+      pdf := getBookPdf(lsBooks)
       pdf.Output(w )
-
   }
 //------------------------------------------------
 //------------------------------------------------

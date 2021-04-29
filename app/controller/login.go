@@ -70,8 +70,6 @@ func LoginPOST(w http.ResponseWriter, r *http.Request) {
          var user  model.User
          user.Cuenta  = cuenta
 	 err := user.UserByCuenta()
-         fmt.Printf("User = %s  pass= %s\n", cuenta, password)
-	 fmt.Println(err)
 	// Determine if user exists
 	if err == model.ErrNoResult {
 		loginAttempt(sess)
