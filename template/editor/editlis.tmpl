@@ -1,0 +1,97 @@
+  {{define "title"}} 
+          Listar Editoras
+  {{end}}
+
+  {{define "head"}}  
+ 
+  {{end}}
+ 
+ {{define "search"}}
+    <h3 class="center wrapper lcols2">
+       <div class="box">    
+           Editors 
+       </div>
+       <div class="box">    
+           <form class="form-inline" method="post" action="/editor/search">
+              <label for="bsearch">Search:</label>
+              <input type="text" id="bsearch" name="bsearch" value="{{.Search}}" size="32" autofocus /> 
+               <input type="hidden" name="token" value="{{.token}}" />
+               <button type="submit"> <img src="/static/favicons/search_f_01.png" width="15"/> </button>
+           </form>
+       </div>
+       <div class="box">    
+       </div>
+     </h3>
+
+ {{end}}
+
+
+{{define "pagi"}}
+ <div>
+    <div class="cwrapper">
+        {{$NPag := .current}}
+        {{ range $index, $btn := .slice }}
+            {{if eq $btn $NPag}}
+              <div class="button color2">
+                <a class="label" href="/editor/list/{{$btn}}"> <<{{$btn}} >></a>
+            {{else}}
+              <div class="button color1">
+                <a class="label" href="/editor/list/{{$btn}}"> {{$btn}}</a>
+            {{end}}
+               </div>
+        {{end}}
+    </div>
+{{end}}
+
+
+  {{define "content"}}
+        {{template "pagi"    .  }}
+    <div class="lwidth">
+      {{template "search" . }} 
+        {{$NLev := .Level}}
+        {{$NPag := .current}}
+        <div class="lwrapper fcols1">
+           <div class="box"> Name </div>
+           {{ if or ( eq $NLev 3)  ( eq $NLev 4) }}
+              <div class="box"> 
+                <span class="right">
+                 <a class="btn btn-warning" href ="#">  Ed </a> 
+                </span>
+              </div>
+            {{end}} 
+            {{ if eq $NLev 5}}
+              <div class="box">
+                <span class="right">
+                 <a class="btn btn-warning" href ="#">  Ed </a> 
+                 <a class="btn btn-danger" href ="#">  Del </a> 
+                </span>
+               </div>
+            {{end}} 
+    </div>
+    {{  range  .LisEdit}}
+      <div class="lwrapper fcols1">
+           <div class="box">
+              <a  href="/biblos/edit/list/{{.Id}}/1/{{$NPag}}">{{.Name}}</a>
+           </div>
+           {{ if or ( eq $NLev 3)  ( eq $NLev 4) }}
+              <div class="box">
+                <span class="right">
+                <a class="btn btn-warning" href="/editor/update/{{.Id}}/{{$NPag}}"> Ed </a>
+                </span>
+              </div>
+           {{end}} 
+           {{ if eq $NLev 5}}
+              <div class="box">
+                <span class="right">
+                    <a class="btn btn-warning" href="/editor/update/{{.Id}}/{{$NPag}}" > Ed </a>
+                    <a class="btn btn-danger" href="/editor/delete/{{.Id}}/{{$NPag}}" > Del </a>
+                </span>
+              </div>
+           {{end}} 
+        </div>
+    {{end}}
+ 	{{template "footer" .}}  
+    </div>
+{{end}}
+
+{{define "foot"}}{{end}}

@@ -1,0 +1,47 @@
+{{define "title"}}Actualizar Cuenta{{end}}
+{{define "head"}}
+{{end}}
+
+{{define "content"}}
+ <div class="fcontent">
+       <h3 class="mcenter">{{template "title" .}}</h3>
+
+       <form method="post">
+
+           <div class="fwrapper fcols2">
+              <div class="fbox">
+                  <label for="cuenta">Cuenta</label>
+              </div>
+              <div class="fbox">
+                  <input type="text" id="cuenta" size="16" maxlength="32" name="cuenta"  value={{.cuenta}} autofocus />
+              </div>
+	   </div>
+		
+           <div class="fwrapper fcols2">
+              <div class="fbox">
+                    <label for="level">Nivel</label>
+              </div>
+              <div class="fbox">
+                    <input type="range" id="level" name="level" size="2" maxlength="2" placeholder="Nivel" min="0" max="5" value="{{.ulevel}}" />
+              </div>
+	   </div>
+
+           <div class="fwrapper fcols2">
+              <div class="fbox">
+		   <input type="hidden" name="token" value="{{.token}}">
+              </div>
+              <div class="fbox">
+                 <scan>
+                   <input type="submit" name="action" value="Actualizar" />
+                   <input type="submit" name="action" value="Cancelar" />
+                 </scan>
+              </div>
+	   </div>
+
+	</form>
+	
+	{{template "footer" .}}
+  </div>
+
+{{end}}
+{{define "foot"}}{{end}}

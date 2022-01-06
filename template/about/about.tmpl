@@ -1,0 +1,22 @@
+{{define "title"}}About{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+<div class="container">
+	<div class="page-header">
+		<h1>{{template "title" .}}</h1>
+	</div>
+	<p>
+           Bienvenido</br>
+           Esta pagina es una via de acceso mi listado de libros
+           </br>
+           No sólo se listan los libros registrados
+           </br>
+           sino que vemos libros por autor (es) o por editor(es)
+        </p>
+	<p>
+            Todo simple
+        </p>
+	{{template "footer" .}}
+</div>
+{{end}}
+{{define "foot"}}{{end}}

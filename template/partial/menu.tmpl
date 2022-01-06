@@ -1,0 +1,153 @@
+ {{if eq .AuthLevel "auth"}}
+     {{if eq .level  1}}
+        {{ template "menu1"   }}
+     {{else if eq .level  2}}
+        {{ template "menu2"   }}
+     {{else if gt .level  2}}
+       {{ template "menu3"   }}
+     {{end}}
+ {{else}}
+   {{ template "menu0"   }}
+ {{end}}
+
+
+ {{define "menu01"}}
+    <li> <a  href="/about"> Somos </a> </li>
+    <li> <a href="/logout"> Salir </a> </li>
+ {{end}}
+
+{{define "menu0"}}
+  <div class="udropdown">
+  <ul>
+    <li> <a href="/about">Somos</a> </li>
+    <li> <a  href="/login">Entrar</a> </li>
+  </ul>
+    <br style="clear: left" />
+  </div>
+ {{end}}
+
+{{define "menu1"}}
+  <div class="udropdown">
+  <ul>
+     <li>
+       <a href="#" > Usuarios      </a>
+       <ul><li> <a href="/user/list/1">Listar</a></li> </ul>
+     </li>
+     <li>
+        <a href="#" > Lenguajes     </a>
+        <ul><li> <a  href="/language/list/1">Listar</a></li> </ul>
+     </li>
+     <li>
+        <a  href="#"> Editoras      </a>
+        <ul><li> <a  href="/editor/list/1">Listar </a></li> </ul>
+     </li>
+     <li>
+         <a  href="#"> Autores      </a>
+         <ul><li> <a  href="/author/list/1">Listar</a></li> </ul>
+     </li>
+     <li>
+        <a  href="#"> Libros         </a>
+        <ul><li> <a  href="/biblos/list/1">Listar  </a></li> </ul>
+     </li>
+       {{ template "menu01"   }}
+  </ul>
+    <br style="clear: left" />
+  </div>
+ {{end}}
+
+
+{{define "menu2"}}
+
+  <div class="udropdown">
+  <ul>
+     <li>
+       <a href="#"> Usuarios    </a>
+       <ul>
+         <li><a href="/user/register"> Registrar  </a></li>
+         <li><a href="/user/list/1">    Listar    </a></li>
+       </ul>
+     </li>
+     <li>
+        <a href="#" >Lenguajes   </a>
+        <ul>
+          <li><a href="/language/register"> Registrar </a></li>
+          <li><a href="/language/list/1">   Listar    </a></li>
+        </ul>
+     </li>
+     <li>
+        <a href="#" > Editoras    </a>
+        <ul>
+          <li><a href="/editor/register">    Registrar </a></li>
+          <li><a href="/editor/list/1">      Listar    </a></li>
+        </ul>
+     </li>
+     <li>
+         <a  href="#"> Autores     </a>
+         <ul>
+            <li><a href="/author/register">   Registrar </a></li>
+            <li><a href="/author/list/1">     Listar    </a></li>
+         </ul>
+     </li>
+     <li>
+        <a href="#">    Libros      </a>
+        <ul>
+           <li><a  href="/biblos/register">     Registrar  </a></li>
+           <li><a  href="/biblos/list/1">       Listar  </a></li>
+        </ul>
+     </li>
+       {{ template "menu01"   }}
+  </ul>
+    <br style="clear: left" />
+  </div>
+
+ {{end}}
+
+
+{{define "menu3"}}
+
+  <div class="udropdown">
+    <ul>
+       <li>  <a href="/"> Home    </a> </li>
+       <li>  <a href="#"> Usuarios </a> 
+          <ul>
+            <li><a href="/user/register">  Registrar </a></li>
+            <li><a href="/user/list/1"  >  Listar      </a></li>
+            <li><a href="#">  Otros   </a>
+              <ul>
+                <li><a href="/user/chpass">   Cambio Clave      </a></li>
+              </ul>
+            </li>
+          </ul>
+       </li>
+       <li><a href="#" > Lenguajes </a> 
+          <ul>
+            <li><a href="/language/register"> Registrar   </a></li>
+            <li><a href="/language/list/1">   Listar      </a></li>
+          </ul>
+       </li>
+       <li> <a href="#"> Editoras </a> 
+         <ul>
+           <li><a href="/editor/register"> Registrar  </a></li>
+           <li><a href="/editor/list/1">   Listar       </a></li>
+         </ul>
+       </li>
+      <li> <a href="#" > Autores </a>
+        <ul>
+          <li><a href="/author/register"> Registrar   </a></li>
+          <li><a href="/author/list/1">   Listar      </a></li>
+        </ul>
+      </li>
+      <li> <a href="#" > Libros </a> 
+        <ul>
+          <li><a href="/biblos/register"> Registrar  </a></li>
+          <li><a href="/biblos/list/1">   Listar     </a></li>
+        </ul>
+      </li>
+       {{ template "menu01"  }}
+    </ul>
+    <br style="clear: left" />
+  </div>
+
+ {{end}}
+
+

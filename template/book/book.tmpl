@@ -1,0 +1,122 @@
+  {{define "title"}}Crear Libro{{end}}
+  {{define "head"}}
+  {{end}}
+
+ {{define "content"}}
+   <div class="fcontent">
+     <h3 class="mcenter">{{template "title" .}}</h3>
+
+     <form method="post">
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+              <label for="title" ><span>Titulo </span></label>
+           </div>
+           <div class="fbox">
+              <input type="text"  id="title" name="title" size="32" maxlength="48" placeholder="title" autofocus />
+           </div>
+	</div>
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+               <label for="language" ><span>Language</span></label>
+           </div>
+           <div class="fbox">
+               <select name="language_id"> 
+                  {{range $key, $value := .LisLang}}
+                    <option value="{{ $value.Id }}">{{ $value.Name }}</option>
+                  {{end}}
+               </select>
+           </div>
+	</div>
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+              <label for="editor" ><span> Editor</span></label>
+           </div>
+           <div class="fbox">
+              <select name="editor_id"> 
+                 {{range $key, $value := .LisEdit}}
+                   <option value="{{ $value.Id }}">{{ $value.Name }}</option>
+                 {{end}}
+              </select>
+           </div>
+	</div>
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+              <label for="author" ><span>Author</span></label>
+           </div>
+           <div class="fbox">
+              <select name="author_id" id="AuthorId"> 
+                 {{range $key, $value := .LisAuthor}}
+                    <option value="{{ $value.Id }}">{{ $value.Name }}</option>
+                 {{end}}
+              </select>
+<!--              <span> <img id="isearch" src="/static/favicons/search_f_01.png" width="15" /> </span>  -->
+           </div>
+	</div>
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+              <label for="comment" >comment</label>
+           </div>
+           <div class="fbox">
+              <input type="text" id="comment" name="comment" size="32" maxlength="40" placeholder="comment" />
+           </div>
+	</div>
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+              <label for="isbn" ><span>isbn</span></label>
+           </div>
+           <div class="fbox">
+              <input type="text" id="isbn" name="isbn" size="12" maxlength="16" placeholder="isbn" />
+           </div>
+	</div>
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+               <label for="year"><span>year</span></label>
+           </div>
+           <div class="fbox">
+               <input type="text" id="year" name="year" size="8"  placeholder="year" />
+           </div>
+	</div>
+
+	<div class="fwrapper fcols2a">
+           <div class="fbox">
+              <input type="hidden" name="token" value="{{.token}}">
+           </div>
+           <div class="fbox">
+           <span>
+              <input type="submit" name="action" value="Crear" />
+              <input type="submit" name="action" value="Cancelar" />
+           </span>
+	   </div>
+	 </div>
+
+	</form>
+
+	{{template "footer" .}}
+    </div>
+<script>
+function getAuthor() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var selec = document.getElementById('AuthorId');
+      var opt = selec.options;
+      opt.value = this.ResponseText;
+      opt.name = this.ResponseText;
+    }
+  };
+  alert("Receiving data");
+  xhttp.open("GET", "/author/getAuthor", true);
+  xhttp.send();
+}
+</script>
+
+{{end}}
+
+{{define "foot"}}{{end}}

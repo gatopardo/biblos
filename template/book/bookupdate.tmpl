@@ -1,0 +1,108 @@
+  {{define "title"}} Actualizar Libro {{end}}
+  {{define "head"}}
+  {{end}}
+
+ {{define "content"}}
+   <div class="fcontent" >
+       <h3 class="mcenter"> Editar Libro </h3>
+
+       <form method="post" >
+
+        <div class="fwrapper fcols4">
+          <div class="fbox">
+              <label for="title" >Titulo</label>
+          </div >
+          <div class="fbox" >
+              <input type="text" id="title" name="title" size="48" maxlength="64" value="{{.Book.Title}}" autofocus />
+          </div>
+       </div>
+
+       <div class="fwrapper fcols4" >
+           <div class="fbox" >
+             <label for="language" >Language</label>
+           </div >
+           <div class="fbox" >
+               <select name="language_id"> 
+                   <option value="{{.Lang.Id }}">{{ .Lang.Name }}</option>
+                   {{range $key, $value := .LisLang}}
+                      <option value="{{ $value.Id }}">{{ $value.Name }}</option>
+                   {{end}}
+                </select>
+           </div>
+       </div>
+
+       <div class="fwrapper fcols4" >
+		<div class="fbox" >
+		   <label for="editor">Editor</label>
+		</div >
+		<div class="fbox" >
+                   <select name="editor_id"> 
+                      <option value="{{.Edit.Id }}">{{ .Edit.Name }}</option>
+                     {{range $key, $value := .LisEdit}}
+                        <option value="{{ $value.Id }}">{{ $value.Name }}</option>
+                     {{end}} 
+                  </select>
+                </div>
+	</div>
+
+	<div class="fwrapper fcols4" >
+		<div class="fbox" >
+	    	   <label for="author" >Author</label>
+		</div >
+		<div class="fbox" >
+                  <select name="author_id"> 
+                     <option value="{{ .Auth.Id }}">{{ .Auth.Name }}</option>
+                   {{range $key, $value := .LisAuthor}}
+                    <option value="{{ $value.Id }}">{{ $value.Name }}</option>
+                   {{end}} 
+                </select>
+                </div>
+	</div>
+
+	<div class="fwrapper fcols4" >
+		<div class="fbox" >
+		    <label for="comment">comment</label>
+		</div >
+		<div class="fbox" >
+                  <input type="text" id="comment" name="comment" size="32" maxlength="40" value="{{.Book.Comment}}"/>
+                </div>
+	</div>
+
+	<div class="fwrapper fcols4" >
+		<div class="fbox" >
+		   <label for="isbn" ><span>isbn</span></label>
+		</div > 
+		<div class="fbox" >
+                    <input type="text" id="isbn" name="isbn" size="12" maxlength="16" value="{{.Book.Isbn}}"/>
+                 </div>
+	</div>
+
+	<div class="fwrapper fcols4" >
+		<div class="fbox" >
+		  <label for="year" ><span>year</span></label>
+		</div >
+		<div class="fbox" >
+                   <input type="text" class="form-control" id="year" name="year" maxlength="8" value="{{.Book.Year}}"/>
+                </div>
+	</div>
+
+	<div class="fwrapper fcols4" >
+		<div class="fbox" >
+		   <input type="hidden" name="token" value="{{.token}}">
+                </div>
+		<div class="fbox" >
+                <span>
+                   <input type="submit" name="action" value="Actualizar" />
+                   <input type="submit" name="action" value="Cancelar" />
+                </span>
+                </div>
+                </div>
+	 </div>
+     
+	</form>
+
+	{{template "footer" .}}
+   </div>
+
+{{end}}
+{{define "foot"}}{{end}}

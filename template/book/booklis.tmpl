@@ -1,0 +1,111 @@
+  {{define "title"}}
+          Listar Libros
+  {{end}}
+
+ {{define "head"}}  
+ {{end}}
+
+
+ {{define "genpdf"}}
+    <div class="mcenter">
+       <form class="mcenter"  method="get" action="/biblos/pdf/book">
+         <button type="submit">Print!</button>
+      </form>
+    </div>  
+ {{end}}
+
+{{define "search"}}
+    <h3 class="center wrapper lcols2">
+       <div class="box">    
+           Libros  
+       </div>
+       <div class="box">    
+           <form class="form-inline" method="post" action="/biblos/search">
+              <label for="bsearch">Search:</label>
+              <input type="text" id="bsearch" name="bsearch" value="{{.Search}}" size="48" autofocus />
+               <input type="hidden" name="token" value="{{.token}}">
+               <button type="submit"> <img src="/static/favicons/search_f_01.png" width="15"/> </button>
+           </form>
+       </div>
+       <div class="box">    
+       </div>
+     </h3>
+
+ {{end}}
+
+ {{define "pagi"}}
+  <div class="cwrapper">
+        {{ $NPag := .current}}
+        {{ range $index, $btn := .slice }}
+            {{if eq $btn $NPag}}
+                <div class="button color2">
+                 <a class="label" href="/biblos/list/{{$btn}}"> <<{{$btn}}>></a>
+                </div>
+            {{else}}
+                <div class="button color1">
+                   <a class="label" href="/biblos/list/{{$btn}}"> {{$btn}}</a>
+                </div>
+            {{end}}
+         {{end}}
+  </div>
+ {{end}}
+
+ {{define "content"}}
+       {{template "pagi"    .  }}
+        <div class="lwidth2">
+       {{template "search" . }} 
+        {{$NLev := .Level}}
+        {{$NPag := .current}}
+        <div class="wrapper lcols6b">
+            <div class="box "> Titulo </div>
+            <div class="box "> Tema </div>
+            <div class="box "> Idioma </div>
+            <div class="box "> Editora </div>
+            <div class="box "> Autor </div>
+
+            {{ if or ( eq $NLev 3) (eq $NLev 4)}}
+                      <span class="right">
+                <div class="box" >< a class=" btn btn-warning " href="#"> Edit </a> </div>
+                       </span>
+            {{end}} 
+            {{ if eq $NLev 5}}
+               <div class="box"> 
+                  <span class="right">
+                     <a class=" btn btn-warning " href="#"> Ed </a>
+                     <a class=" btn btn-danger " href="#"> Del </a>
+                  </span>
+              </div>
+            {{end}} 
+        </div>
+        {{  range  .LisBook}}
+            <div class="wrapper lcols6b">
+                 <div class="box "> {{ .Title }} </div>
+                 <div class="box">  {{ .Comment }} </div>
+                 <div class="box "> {{ .Language }} </div>
+                 <div class="box">  {{ .Editor }} </div>
+                 <div class="box">  {{.Author }} </div>
+                 {{ if or ( eq $NLev 3) ( eq $NLev 4)}}
+                    <div class="box"  >
+                      <span class="right">
+                       <a class="elabel btn btn-warning" href="/biblos/update/{{.Id}}/{{$NPag}}/0" > Edit </a>
+                       </span>
+                    </div>
+                 {{end}} 
+                 {{ if eq $NLev 5}}
+                    <div class="box" >
+                       <span class="right">
+                        <a class="btn btn-warning" href="/biblos/update/{{.Id}}/{{$NPag}}/0" > Ed </a>
+                        <a class="elabel btn btn-danger" href="/biblos/delete/{{.Id}}/{{$NPag}}/0" > Del </a>
+                       </span>
+                     </div>
+                 {{end}} 
+            </div>
+        {{end}}
+        {{template "genpdf" .}} 
+	{{template "footer" .}}
+   </div>
+ {{end}}
+
+   {{define "foot"}}
+   {{end}}
+

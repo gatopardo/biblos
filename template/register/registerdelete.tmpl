@@ -1,0 +1,50 @@
+{{define "title"}}Eliminar Cuenta{{end}}
+{{define "head"}}
+{{end}}
+
+{{define "content"}}
+
+  <div class="container">
+     <div class="fcontent">
+        <h3 class="mcenter">{{template "title" .}}</h3>
+
+	<form method="post">
+         
+          <div class="fwrapper fcols2">
+             <div class="fbox">
+                <label for="title">Cuenta </label>
+             </div>
+             <div class="fbox">
+                <input type="text" id="cuenta" name="cuenta"size="16" maxlength="32" value="{{.cuenta}}" readonly />
+             </div>
+          </div>
+
+          <div class="fwrapper fcols2">
+             <div class="fbox">
+                <label for="level"> Nivel </label>
+             </div>
+             <div class="fbox">
+                <input type="range" id="level" name="level" size="2" maxlength="2"  min="0" max="5" value="{{.ulevel}}" readonly />
+             </div>
+           </div>
+
+          <div class="fwrapper fcols2">
+             <div class="fbox">
+		<input type="hidden" name="token" value="{{.token}}">
+             </div>
+             <div class="fbox">
+                <span>
+		    <input type="submit" name="action" value="Eliminar" />
+		    <input type="submit" name="action" value="Cancelar" />
+                </span> 
+             </div>
+           </div>
+
+	</form>
+	
+	{{template "footer" .}}
+  </div>
+
+{{end}}
+{{define "foot"}}{{end}}
+
