@@ -17,7 +17,6 @@ import (
 
         "github.com/gorilla/context"
 	"github.com/julienschmidt/httprouter"
-
   )
 
 const (
@@ -36,7 +35,8 @@ const (
         cuenta         := params.ByName("cuenta")
         password       := params.ByName("password")
         stEnc, _ := base64.StdEncoding.DecodeString(password)
-	   password = string(stEnc)
+	fmt.Printf("%s %s\n", cuenta, password)
+        password = string(stEnc)
         var jpers  model.Jperson
         jpers.Cuenta  = cuenta
 	pass, err    := (&jpers).JPersByCuenta()

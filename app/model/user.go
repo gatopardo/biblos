@@ -152,12 +152,12 @@ func (user *User)UserByCuenta() ( error) {
 // JpersByCuenta gets user information from cuenta
 func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
 	var err error
-        stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level, u.email FROM users u WHERE u.cuenta=$1"
-         err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel, &jpers.Email )
+        stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta=$1"
+         err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
      if err != nil {
 	 jpers.Cuenta   = strings.Trim(jpers.Cuenta, " ")
 	 jpers.Uuid     = strings.Trim(jpers.Uuid, " ")
-	 jpers.Email    = strings.Trim(jpers.Email, " ")
+//	 jpers.Email    = strings.Trim(jpers.Email, " ")
    }
 	 ex             = standardizeError(err)
 	return
