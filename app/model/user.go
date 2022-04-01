@@ -2,6 +2,7 @@ package model
 
 import (
         "database/sql"
+	_ "github.com/lib/pq"
 	"fmt"
 	"time"
 	"strings"
@@ -26,9 +27,9 @@ type User struct {
 
 // User table contains text password
 type Shadow struct {
-	Id          uint32        `db:"id" bson:"id,omitempty"` 
-	UserId      uint32        `db:"userid" bson:"id,omitempty"` 
-	Uuid        string        `db:"uuid" bson:"uuid,omitempty"` 
+	Id          uint32        `db:"id" bson:"id,omitempty"`
+	UserId      uint32        `db:"userid" bson:"id,omitempty"`
+	Uuid        string        `db:"uuid" bson:"uuid,omitempty"`
 	Password    string        `db:"password" bson:"password"`
 	CreatedAt time.Time     `db:"created_at" bson:"created_at"`
 	UpdatedAt time.Time     `db:"updated_at" bson:"updated_at"`
@@ -67,8 +68,7 @@ func (user *User) Session() (session Session, err error) {
 // --------------------------------------------------------
 // Check if session is valid in the database
 func (session *Session) Check() (valid bool, err error) {
-	err = Db.QueryRow("SELECT id, uuid, user_id, created_at FROM sessions WHERE uuid = $1", session.Uuid).
-		Scan(&session.Id, &session.Uuid,  &session.UserId, &session.CreatedAt)
+	err = Db.QueryRow("SELECT id, uuid, user_id, created_at FROM sessions WHERE uuid = '$1'", session.Uuid). Scan(&session.Id, &session.Uuid,  &session.UserId, &session.CreatedAt)
 	if err != nil {
 		valid = false
 		return
@@ -149,17 +149,27 @@ func (user *User)UserByCuenta() ( error) {
 	}
 	return   standardizeError(err)
 }
+
+// --------------------------------------------------------
+
 // JpersByCuenta gets user information from cuenta
 func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
-	var err error
-        stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta=$1"
-         err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
-     if err != nil {
+        stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta = $1"
+	row := Db.QueryRow(stq,jpers.Cuenta)
+	err := row.Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
+	ex     = standardizeError(err)
+	switch  err {
+       case sql.ErrNoRows:
+	   fmt.Println("JpersBy Cuenta ex", ex)
+        case nil:
 	 jpers.Cuenta   = strings.Trim(jpers.Cuenta, " ")
 	 jpers.Uuid     = strings.Trim(jpers.Uuid, " ")
-//	 jpers.Email    = strings.Trim(jpers.Email, " ")
-   }
-	 ex             = standardizeError(err)
+         fmt.Println("JpersByCuenta ", jpers.Cuenta, jpers.Uuid)
+	 //	 jpers.Email    = strings.Trim(jpers.Email, " ")
+         default:
+              fmt.Println("JpersByCuenta panic", ex)
+//               panic(err)
+       }
 	return
 }
 
@@ -190,7 +200,7 @@ func (u *User)UserCreate() error {
 func (sd *Shadow)ShadCreate() error {
 	var err error
          var stmt  *sql.Stmt
-         stq := "INSERT INTO shadows (user_id, uuid,  password, created_at, updated_at ) VALUES ($1,$2,$3,$4, $5) returning id" 
+         stq := "INSERT INTO shadows (user_id, uuid,  password, created_at, updated_at ) VALUES ($1,$2,$3,$4, $5) returning id"
 	now  := time.Now()
             if stmt, err = Db.Prepare(stq ); err != nil  {
 	          return standardizeError(err)
@@ -207,7 +217,7 @@ func (sd *Shadow)ShadCreate() error {
 // -----------------------------------------------------
  func  (user * User)UserDeleteById()( err error){
          stqd :=  "DELETE FROM users where id = $1"
-           _, err = Db.Exec(stqd, user.Id) 
+           _, err = Db.Exec(stqd, user.Id)
          return
        }
 
