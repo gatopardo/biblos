@@ -1,6 +1,6 @@
    {
 	"Database": {
-                "Remote": true,
+                "Remote": false,
 		"Type": "PostgreSQL",
 		"PostgreSql": {
 			"Username": "postgres",
@@ -21,9 +21,9 @@
 
 	},
 	"Server": {
-                "Remote": true,
+                "Remote": false,
 		"Hostname": "0.0.0.0",
-		"UseHTTP": false,
+		"UseHTTP": true,
 		"UseHTTPS": true,
 		"HTTPPort": 9090,
 		"HTTPSPort": 4430,

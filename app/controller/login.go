@@ -17,7 +17,6 @@ import (
 
         "github.com/gorilla/context"
 	"github.com/julienschmidt/httprouter"
-
   )
 
 const (
@@ -28,23 +27,25 @@ const (
  func JLoginGET(w http.ResponseWriter, r *http.Request) {
         var params httprouter.Params
 	sess           := model.Instance(r)
-
 	v := view.New(r)
 	v.Vars["token"] = csrfbanana.Token(w, r, sess)
-
         params          = context.Get(r, "params").(httprouter.Params)
         cuenta         := params.ByName("cuenta")
-        password       := params.ByName("password")
-        stEnc, _ := base64.StdEncoding.DecodeString(password)
-	   password = string(stEnc)
+        passw          := params.ByName("password")
+        stEnc, _       := base64.StdEncoding.DecodeString(passw)
+	password       := string(stEnc)
         var jpers  model.Jperson
-        jpers.Cuenta  = cuenta
-	pass, err    := (&jpers).JPersByCuenta()
+        jpers.Cuenta    = cuenta
+	pass, err      := (&jpers).JPersByCuenta()
+    fmt.Printf("JLoginGET verify  %s %s %s\n",  jpers.Cuenta, stEnc, pass)
 	if err == model.ErrNoResult {
+	     fmt.Printf("JLoginGET nada %s\n", pass)
              loginAttempt(sess)
 	} else {
-		b:= passhash.MatchString(pass, password)
-                if b && jpers.Nivel > 0{ var js []byte
+                 b:= passhash.MatchString(pass, password)
+    fmt.Printf("JLoginGET verify %t %s %s\n", b, jpers.Cuenta, pass)
+                if b && jpers.Nivel > 0{
+                   var js []byte
 		   js, err =  json.Marshal(jpers)
                    if err == nil{
 			model.Empty(sess)
@@ -52,6 +53,7 @@ const (
                         sess.Save(r, w)
                         w.Header().Set("Content-Type", "application/json")
                         w.Write(js)
+//     fmt.Printf("JLoginGET all well %s\n", js)
 			return
                     }
 	        }

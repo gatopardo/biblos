@@ -26,9 +26,9 @@ type User struct {
 
 // User table contains text password
 type Shadow struct {
-	Id          uint32        `db:"id" bson:"id,omitempty"` 
-	UserId      uint32        `db:"userid" bson:"id,omitempty"` 
-	Uuid        string        `db:"uuid" bson:"uuid,omitempty"` 
+	Id          uint32        `db:"id" bson:"id,omitempty"`
+	UserId      uint32        `db:"userid" bson:"id,omitempty"`
+	Uuid        string        `db:"uuid" bson:"uuid,omitempty"`
 	Password    string        `db:"password" bson:"password"`
 	CreatedAt time.Time     `db:"created_at" bson:"created_at"`
 	UpdatedAt time.Time     `db:"updated_at" bson:"updated_at"`
@@ -152,15 +152,16 @@ func (user *User)UserByCuenta() ( error) {
 // JpersByCuenta gets user information from cuenta
 func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
 	var err error
-        stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level, u.email FROM users u WHERE u.cuenta=$1"
-         err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel, &jpers.Email )
+        stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta=$1"
+//	fmt.Println(stq)
+         err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
      if err != nil {
 	 jpers.Cuenta   = strings.Trim(jpers.Cuenta, " ")
 	 jpers.Uuid     = strings.Trim(jpers.Uuid, " ")
-	 jpers.Email    = strings.Trim(jpers.Email, " ")
-   }
-	 ex             = standardizeError(err)
-	return
+//	 jpers.Email    = strings.Trim(jpers.Email, " ")
+    }
+     ex             = standardizeError(err)
+    return
 }
 
 // -----------------------------------------------------
