@@ -31,9 +31,16 @@ const (
 	v.Vars["token"] = csrfbanana.Token(w, r, sess)
         params          = context.Get(r, "params").(httprouter.Params)
         cuenta         := params.ByName("cuenta")
+<<<<<<< HEAD
         passw          := params.ByName("password")
         stEnc, _       := base64.StdEncoding.DecodeString(passw)
 	password       := string(stEnc)
+=======
+        password       := params.ByName("password")
+        stEnc, _ := base64.StdEncoding.DecodeString(password)
+	fmt.Printf("%s %s\n", cuenta, password)
+        password = string(stEnc)
+>>>>>>> fafae4b7e109426421e5197678312a3698e485e7
         var jpers  model.Jperson
         jpers.Cuenta    = cuenta
 	pass, err      := (&jpers).JPersByCuenta()
@@ -57,7 +64,7 @@ const (
 			return
                     }
 	        }
-            }
+           }
                log.Println(err)
 //	       http.Error(w, err.Error(), http.StatusBadRequest)
                http.Error(w, err.Error(), http.StatusInternalServerError)
