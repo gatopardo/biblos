@@ -1,6 +1,6 @@
    {
 	"Database": {
-                "Remote": false,
+                "Remote": true,
 		"Type": "PostgreSQL",
 		"PostgreSql": {
 			"Username": "postgres",
