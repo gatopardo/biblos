@@ -154,8 +154,7 @@ func (user *User)UserByCuenta() ( error) {
 
 // JpersByCuenta gets user information from cuenta
 func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
-<<<<<<< HEAD
-	var err error
+/*     var err error
         stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta=$1"
 //	fmt.Println(stq)
          err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
@@ -166,7 +165,9 @@ func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
     }
      ex             = standardizeError(err)
     return
+
 =======
+*/
         stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta = $1"
 	row := Db.QueryRow(stq,jpers.Cuenta)
 	err := row.Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
@@ -177,14 +178,13 @@ func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
         case nil:
 	 jpers.Cuenta   = strings.Trim(jpers.Cuenta, " ")
 	 jpers.Uuid     = strings.Trim(jpers.Uuid, " ")
-         fmt.Println("JpersByCuenta ", jpers.Cuenta, jpers.Uuid)
+//         fmt.Println("JpersByCuenta ", jpers.Cuenta, jpers.Uuid)
 	 //	 jpers.Email    = strings.Trim(jpers.Email, " ")
          default:
               fmt.Println("JpersByCuenta panic", ex)
 //               panic(err)
        }
 	return
->>>>>>> fafae4b7e109426421e5197678312a3698e485e7
 }
 
 // -----------------------------------------------------
@@ -192,7 +192,7 @@ func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
 func (u *User)UserCreate() error {
          var err error
          var stmt  *sql.Stmt
-         stq := "INSERT INTO users (uuid, cuenta, password, level, created_at, updated_at ) VALUES ($1,$2,$3,$4, $5, $6) returning id"
+	 stq := "INSERT INTO users (uuid, cuenta, password, level, created_at, updated_at ) VALUES ($1,$2,$3,$4, $5, $6) returning id"
 
 	now  := time.Now()
 //        stuu :=  createUUID()
