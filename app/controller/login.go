@@ -31,14 +31,9 @@ const (
 	v.Vars["token"] = csrfbanana.Token(w, r, sess)
         params          = context.Get(r, "params").(httprouter.Params)
         cuenta         := params.ByName("cuenta")
-/* <<<<<<< HEAD
-        passw          := params.ByName("password")
-        stEnc, _       := base64.StdEncoding.DecodeString(passw)
-	password       := string(stEnc)
-=======  */
         password       := params.ByName("password")
         stEnc, _ := base64.StdEncoding.DecodeString(password)
-//	fmt.Printf("%s %s\n", cuenta, password)
+//  fmt.Printf("JLoginGET %s %s\n", cuenta, password)
         password = string(stEnc)
         var jpers  model.Jperson
         jpers.Cuenta    = cuenta
@@ -57,9 +52,9 @@ const (
 			model.Empty(sess)
 			sess.Values["id"] = jpers.Id
                         sess.Save(r, w)
+//         fmt.Println(string(js))
                         w.Header().Set("Content-Type", "application/json")
                         w.Write(js)
-//     fmt.Printf("JLoginGET all well %s\n", js)
 			return
                     }
 	        }
@@ -85,7 +80,6 @@ func loginAttempt(sess *sessions.Session) {
 func LoginGET(w http.ResponseWriter, r *http.Request) {
 	// Get session
 	sess := model.Instance(r)
-
 	// Display the view
 	v := view.New(r)
 	v.Name = "login/login"

@@ -33,8 +33,8 @@ import (
 	var lisBooks []model.BookZ
 	var params httprouter.Params
 	sess := model.Instance(r)
-	params      = context.Get(r, "params").(httprouter.Params)
-		rebook      := params.ByName("re")
+	params          = context.Get(r, "params").(httprouter.Params)
+        rebook         := params.ByName("re")
 	lisBooks,err    = model.BookByRe(rebook)
          if err != nil {
               sess.AddFlash(view.Flash{"Error en listado libros ", view.FlashError})
@@ -43,6 +43,7 @@ import (
             var js []byte
             js, err =  json.Marshal(lisBooks)
             if err == nil{
+// fmt.Println(string(js))
                w.Header().Set("Content-Type", "application/json")
                w.Write(js)
 	       return
