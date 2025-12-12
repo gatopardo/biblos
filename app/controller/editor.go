@@ -16,15 +16,44 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
   // ---------------------------------------------------
-// JEditGET crea datos de libros
- func JEditorListGET(w http.ResponseWriter, r *http.Request) {
+// JEditListGET listar editores
+ func JEditListGET(w http.ResponseWriter, r *http.Request) {
+        var err error
+	var lisEditors []model.IEditor
+	var params httprouter.Params
+	sess := model.Instance(r)
+	params      = context.Get(r, "params").(httprouter.Params)
+	reedit    := params.ByName("re")
+//      reedit     :=  strToReg(reparam)
+	lisEditors,err    = model.EditByRe(reedit)
+	fmt.Println("JEditListGET ",lisEditors)
+         if err != nil {
+              sess.AddFlash(view.Flash{"Error listado libros ", view.FlashError})
+	      log.Println(err)
+	}else{
+            var js []byte
+            js, err =  json.Marshal(lisEditors)
+            if err == nil{
+               fmt.Println(string(js))
+               w.Header().Set("Content-Type", "application/json")
+               w.Write(js)
+	       return
+            }
+        }
+    }
+
+// ---------------------------------------------------
+// JEditBookListGET listar libros dado editor`
+ func JEditBookListGET(w http.ResponseWriter, r *http.Request) {
         var err error
 	var lisBooks []model.BookZ
 	var params httprouter.Params
 	sess := model.Instance(r)
 	params      = context.Get(r, "params").(httprouter.Params)
-	reedit      := params.ByName("re")
-	lisBooks,err    = model.EditByRe(reedit)
+        Id,_       := atoi32(params.ByName("id"))
+
+	lisBooks,err    = model.EditBookById(Id)  // nombre correcto
+       fmt.Println("JEditorBookListGET ",lisBooks)
          if err != nil {
               sess.AddFlash(view.Flash{"Error listado libros ", view.FlashError})
 	      log.Println(err)
@@ -32,12 +61,14 @@ import (
             var js []byte
             js, err =  json.Marshal(lisBooks)
             if err == nil{
+         fmt.Println(string(js))
                w.Header().Set("Content-Type", "application/json")
                w.Write(js)
 	       return
             }
         }
     }
+
 // ---------------------------------------------------
 // view.Repopulate([]string{"name"}, r.Form, v.Vars)
 

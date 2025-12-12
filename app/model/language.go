@@ -47,9 +47,11 @@ func (lang * Language)LangByName() (err error) {
 }
 
 // --------------------------------------------------------
-// LangByRe tenemos el book dado re
-func LangByRe(reStr string) (lsBooks []BookZ, err error) {
-	stq := "select b.title, b.comment, b.year, a.name as author, e.name as editor, l.name as language from books b join authors a  on a.id = b.author_id join editors e on e.id = editor_id join languages l on l.id = b.language_id where l.name ~  $1 order by  l.name,b.title, e.name "
+// LangByRe listar lang dado reg
+func LangByRe(reStr string) (lsLangs []ILang, err error) {
+//        stRe :=  "'^" + reStr+".*'"
+	stq := "select l.id, l.name  from languages l  where l.name ~* $1 order by  l.name "
+//       fmt.Println(stq)
 	       var rows * sql.Rows
 	       rows, err = Db.Query(stq,reStr)
                if err != nil {
@@ -57,9 +59,32 @@ func LangByRe(reStr string) (lsBooks []BookZ, err error) {
                }else{
                   defer rows.Close()
                   for rows.Next() {
-			  bib := BookZ{}
-                    err = rows.Scan(&bib.Title, &bib.Comment, &bib.Year, &bib.Author, &bib.Editor, &bib.Language)
+			  lang := ILang{}
+                    err = rows.Scan(&lang.Id, &lang.Name)
                      if  err != nil {
+			 log.Println( err)
+                          break
+		     }
+                    lsLangs = append(lsLangs, lang)
+	          }
+       }
+	return
+  }
+// --------------------------------------------------------
+// LangBookByRe tenemos id author obtener listado libros
+ func LangBookById(Id uint32) (lsBooks []BookZ, err error) {
+	stq := "select b.title, b.comment, b.year, a.name as author, e.name as editor, l.name as language from books b join authors a  on a.id = b.author_id join editors e on e.id = editor_id join languages l on l.id = b.language_id where l.id = $1 order by  a.name,b.title, e.name "
+//              fmt.Println(stq)
+	       var rows * sql.Rows
+	       rows, err = Db.Query(stq, Id)
+                if err != nil {
+                     log.Println(err)
+                }else{
+                   defer rows.Close()
+                   for rows.Next() {
+			  bib := BookZ{}
+                     err = rows.Scan(&bib.Title, &bib.Comment, &bib.Year, &bib.Author, &bib.Editor, &bib.Language)
+                       if  err != nil {
 			 log.Println( err)
                           break
 		     }
@@ -68,6 +93,7 @@ func LangByRe(reStr string) (lsBooks []BookZ, err error) {
        }
 	return
   }
+
 
 
 // -----------------------------------------------------

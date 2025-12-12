@@ -3,6 +3,7 @@ package acl
 import (
 	"net/http"
 	"github.com/gatopardo/biblos/app/model"
+//	"fmt"
 )
 
 // DisallowAuth does not allow authenticated users to access the page
@@ -26,6 +27,7 @@ func DisallowAnon(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get session
 		sess := model.Instance(r)
+//	fmt.Println("DisallowedAnon sess", sess.Values["id"])
 
 		// If user is not authenticated, don't allow them to access the page
 		if sess.Values["id"] == nil {

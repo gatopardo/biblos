@@ -16,15 +16,45 @@ import (
 	"github.com/julienschmidt/httprouter"
   )
 // ---------------------------------------------------
-// JAuthGET crea datos de libros
- func JAuthorListGET(w http.ResponseWriter, r *http.Request) {
+// JAuthorListGET listar autores
+ func JAuthListGET(w http.ResponseWriter, r *http.Request) {
+        var err error
+	var lisAuthors []model.IAuthor
+	var params httprouter.Params
+	sess := model.Instance(r)
+	params      = context.Get(r, "params").(httprouter.Params)
+        reauth    := params.ByName("re")
+//      reauth     :=  strToReg(reparam)
+//   fmt.Println("JAuthorListGET ", reauth)
+	lisAuthors,err    = model.AuthorByRe(reauth)
+   fmt.Println("JAuthorListGET ",lisAuthors)
+         if err != nil {
+              sess.AddFlash(view.Flash{"Error en listado autores ", view.FlashError})
+	      log.Println(err)
+	}else{
+            var js []byte
+            js, err =  json.Marshal(lisAuthors)
+            if err == nil{
+//    fmt.Println(string(js))
+               w.Header().Set("Content-Type", "application/json")
+               w.Write(js)
+	       return
+            }
+        }
+    }
+
+// ---------------------------------------------------
+// JAuthBookListGET listar libros dado author
+ func JAuthBookListGET(w http.ResponseWriter, r *http.Request) {
         var err error
 	var lisBooks []model.BookZ
 	var params httprouter.Params
 	sess := model.Instance(r)
 	params      = context.Get(r, "params").(httprouter.Params)
-	reauth      := params.ByName("re")
-	lisBooks,err    = model.AuthByRe(reauth)
+        Id,_ := atoi32(params.ByName("id"))
+
+	lisBooks,err    = model.AuthBookById(Id)
+//       fmt.Println("JAuthBookListGET ",lisBooks)
          if err != nil {
               sess.AddFlash(view.Flash{"Error listado libros ", view.FlashError})
 	      log.Println(err)
@@ -32,12 +62,14 @@ import (
             var js []byte
             js, err =  json.Marshal(lisBooks)
             if err == nil{
+//         fmt.Println(string(js))
                w.Header().Set("Content-Type", "application/json")
                w.Write(js)
 	       return
             }
         }
     }
+
 // ---------------------------------------------------
 // AuthorGET despliega la pagina del usuario
 func AuthorGET(w http.ResponseWriter, r *http.Request) {

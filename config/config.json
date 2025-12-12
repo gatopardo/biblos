@@ -1,13 +1,13 @@
    {
 	"Database": {
-                "Remote": true,
+                "Remote": false,
 		"Type": "PostgreSQL",
 		"PostgreSql": {
 			"Username": "postgres",
 			"Password": "",
 			"Name": "dbbiblos",
 			"Hostname": "127.0.0.1",
-			"Port": 5436,
+			"Port": 5432,
 			"Parameter": "disable"
 		},
 		"MySQL": {
@@ -21,10 +21,10 @@
 
 	},
 	"Server": {
-                "Remote": true,
+                "Remote": false,
 		"Hostname": "0.0.0.0",
-		"UseHTTP": false,
-		"UseHTTPS": true,
+		"UseHTTP": true,
+		"UseHTTPS": false,
 		"HTTPPort": 9090,
 		"HTTPSPort": 4430,
 		"CertFile": "tls/cert.pem",
@@ -32,7 +32,7 @@
 	},
 	"Email": {
 		"Username": "gato.pardo",
-		"Password": "valle1nuevo5",
+		"Password": "cienaga15",
 		"Hostname": "smtp.gmail.com",
 		"Port": 465,
 		"From": "gato.pardo@gmail.com"

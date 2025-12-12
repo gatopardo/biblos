@@ -63,7 +63,18 @@ import (
           Pagi   int
        }
 
-
+//------------------------------------------------
+   func strToReg(s string) ( sreg string){
+	   var strinic = "@#:!&/"
+	   var strepl  = "[]{}^|"
+	   sreg = s
+	   for i, _ := range strinic {
+		   c1:= strinic[i:i+1]
+		   c2:= strepl[i:i+1]
+	        sreg = strings.ReplaceAll(sreg, c1,c2)
+	   }
+       return
+   }
 //------------------------------------------------
 func substr(s string,pos,length int) string{
     runes:=[]rune(s)

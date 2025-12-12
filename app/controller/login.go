@@ -31,13 +31,8 @@ const (
 	v.Vars["token"] = csrfbanana.Token(w, r, sess)
         params          = context.Get(r, "params").(httprouter.Params)
         cuenta         := params.ByName("cuenta")
-/* <<<<<<< HEAD
-        passw          := params.ByName("password")
-        stEnc, _       := base64.StdEncoding.DecodeString(passw)
-	password       := string(stEnc)
-=======  */
         password       := params.ByName("password")
-        stEnc, _ := base64.StdEncoding.DecodeString(password)
+        stEnc, _       := base64.StdEncoding.DecodeString(password)
 //	fmt.Printf("%s %s\n", cuenta, password)
         password = string(stEnc)
         var jpers  model.Jperson
@@ -45,17 +40,20 @@ const (
 	pass, err      := (&jpers).JPersByCuenta()
 //    fmt.Printf("JLoginGET verify  %s %s %s\n",  jpers.Cuenta, stEnc, pass)
 	if err == model.ErrNoResult {
-	     fmt.Printf("JLoginGET nada %s\n", pass)
+//	     fmt.Printf("JLoginGET nada %s\n", pass)
              loginAttempt(sess)
 	} else {
                  b:= passhash.MatchString(pass, password)
 //    fmt.Printf("JLoginGET verify %t %s %s\n", b, jpers.Cuenta, pass)
-                if b && jpers.Nivel > 0{
+                if b && jpers.Level > 0{
                    var js []byte
 		   js, err =  json.Marshal(jpers)
                    if err == nil{
+//                        fmt.Println(string(js))
 			model.Empty(sess)
 			sess.Values["id"] = jpers.Id
+			sess.Values["cuenta"] = cuenta
+			sess.Values["level"] = jpers.Level
                         sess.Save(r, w)
                         w.Header().Set("Content-Type", "application/json")
                         w.Write(js)
@@ -83,10 +81,8 @@ func loginAttempt(sess *sessions.Session) {
 
 // LoginGET displays the login page
 func LoginGET(w http.ResponseWriter, r *http.Request) {
-	// Get session
 	sess := model.Instance(r)
 
-	// Display the view
 	v := view.New(r)
 	v.Name = "login/login"
 	v.Vars["token"] = csrfbanana.Token(w, r, sess)

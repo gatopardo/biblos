@@ -109,8 +109,13 @@ func routes() *httprouter.Router {
 
 // Language
         r.GET("/biblos/jlang/:re", hr.Handler(alice.
-		New(acl.DisallowAnon).
+//              New(acl.DisallowAuth).
+           New(acl.DisallowAnon).
 		ThenFunc(controller.JLangListGET)))
+        r.GET("/biblos/jlangbooklist/:id", hr.Handler(alice.
+		New(acl.DisallowAuth).
+//		New(acl.DisallowAnon).
+		ThenFunc(controller.JLangBookListGET)))
 	r.GET("/language/register", hr.Handler(alice.
 		New(acl.DisallowAnon).
 		ThenFunc(controller.LangGET)))
@@ -137,9 +142,14 @@ func routes() *httprouter.Router {
 		ThenFunc(controller.LangDeletePOST)))
 
 // Editor
-        r.GET("/biblos/jeditor/:re", hr.Handler(alice.
-		New(acl.DisallowAnon).
-		ThenFunc(controller.JEditorListGET)))
+        r.GET("/biblos/jedit/:re", hr.Handler(alice.
+//              New(acl.DisallowAuth).
+             New(acl.DisallowAnon).
+		ThenFunc(controller.JEditListGET)))
+        r.GET("/biblos/jeditbooklist/:id", hr.Handler(alice.
+		New(acl.DisallowAuth).
+//		New(acl.DisallowAnon).
+		ThenFunc(controller.JEditBookListGET)))
 	r.GET("/editor/register", hr.Handler(alice.
 		New(acl.DisallowAnon).
 		ThenFunc(controller.EditGET)))
@@ -169,11 +179,15 @@ func routes() *httprouter.Router {
 		New(acl.DisallowAnon).
 		ThenFunc(controller.EditorSearchPOST)))
 
-
 // Author
         r.GET("/biblos/jauthor/:re", hr.Handler(alice.
-		New(acl.DisallowAnon).
-		ThenFunc(controller.JAuthorListGET)))
+//              New(acl.DisallowAuth).
+           New(acl.DisallowAnon).
+		ThenFunc(controller.JAuthListGET)))
+        r.GET("/biblos/jauthbooklist/:id", hr.Handler(alice.
+		New(acl.DisallowAuth).
+//		New(acl.DisallowAnon).
+		ThenFunc(controller.JAuthBookListGET)))
 	r.GET("/author/register", hr.Handler(alice.
 		New(acl.DisallowAnon).
 		ThenFunc(controller.AuthorGET)))
@@ -205,6 +219,7 @@ func routes() *httprouter.Router {
 
 	// Biblos
         r.GET("/biblos/jbook/:re", hr.Handler(alice.
+//		New(acl.DisallowAuth).
 		New(acl.DisallowAnon).
 		ThenFunc(controller.JBookListGET)))
 	r.GET("/biblos/register", hr.Handler(alice.

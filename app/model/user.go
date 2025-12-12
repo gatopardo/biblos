@@ -36,9 +36,9 @@ type Shadow struct {
 }
    type Jperson struct {
 	Id          uint32        `db:"id" bson:"id,omitempty"`
-	Cuenta      string        `db:"cuenta" bson:"cuenta"`
 	Uuid        string        `db:"uuid" bson:"uuid,omitempty"`
-	Nivel       uint32        `db:"nivel" bson:"nivel"`
+	Cuenta      string        `db:"cuenta" bson:"cuenta"`
+	Level       uint32        `db:"level" bson:"nivel"`
 	Email       string        `db:"email" bson:"email"`
    }
 
@@ -157,7 +157,7 @@ func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
 /*     var err error
         stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta=$1"
 //	fmt.Println(stq)
-         err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
+         err = Db.QueryRow(stq,&jpers.Cuenta).Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Level )
      if err != nil {
 	 jpers.Cuenta   = strings.Trim(jpers.Cuenta, " ")
 	 jpers.Uuid     = strings.Trim(jpers.Uuid, " ")
@@ -170,18 +170,18 @@ func (jpers *Jperson)JPersByCuenta()(pass string,  ex error) {
 */
         stq  :=   "SELECT  u.id,u.cuenta, u.password,u.uuid, u.level FROM users u WHERE u.cuenta = $1"
 	row := Db.QueryRow(stq,jpers.Cuenta)
-	err := row.Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Nivel )
+	err := row.Scan(&jpers.Id, &jpers.Cuenta, &pass, &jpers.Uuid, &jpers.Level )
 	ex     = standardizeError(err)
 	switch  err {
        case sql.ErrNoRows:
-	   fmt.Println("JpersBy Cuenta ex", ex)
+//      fmt.Println("JpersBy Cuenta ex", ex)
         case nil:
 	 jpers.Cuenta   = strings.Trim(jpers.Cuenta, " ")
 	 jpers.Uuid     = strings.Trim(jpers.Uuid, " ")
 //         fmt.Println("JpersByCuenta ", jpers.Cuenta, jpers.Uuid)
-	 //	 jpers.Email    = strings.Trim(jpers.Email, " ")
+ //	 jpers.Email    = strings.Trim(jpers.Email, " ")
          default:
-              fmt.Println("JpersByCuenta panic", ex)
+//              fmt.Println("JpersByCuenta panic", ex)
 //               panic(err)
        }
 	return

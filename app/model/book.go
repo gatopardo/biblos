@@ -58,6 +58,31 @@ func (book * Book) NoBlankb(){
             book.Isbn =  strings.Trim(book.Isbn, " ")
             book.Comment =  strings.Trim(book.Comment, " ")
        }
+/*
+// --------------------------------------------------------
+// AuthBookById tenemos el book dado re
+func AuthBookById(id uint32) (lsBooks []BookN, err error) {
+	       var book BookN
+        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year  FROM books b left outer join languages l on ( b.language_id = l.id ) left outer join editors e on ( b.editor_id = e.id ) left outer join authors a on ( b.author_id = a.id ) where a.id = $1 order by b.title  "
+	rows, err := Db.Query(stq, id)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+	for rows.Next() {
+            book = BookN{}
+            err = rows.Scan(&book.Id, &book.Language, &book.Editor, &book.Author, &book.Title, &book.Isbn, &book.Comment, &book.Year )
+            if  err != nil {
+                             fmt.Println( err)
+                             log.Println( err)
+//			return
+		}
+		lsBooks = append(lsBooks, book)
+	}
+	return
+
+  }
+*/
 // --------------------------------------------------------
 // BookById tenemos el book dado id
 func (book * Book)BookById() (err error) {
@@ -66,12 +91,15 @@ func (book * Book)BookById() (err error) {
 
 	return  standardizeError(err)
 }
-// --------------------------------------------------------
+
+// -------------------------------------------------------
 // BookByRe tenemos el book dado re
 func BookByRe(reStr string) (lsBooks []BookZ, err error) {
-	stq := "select b.title, b.comment, b.year, a.name as author, e.name as editor, l.name as language from books b join authors a  on a.id = b.author_id join editors e on e.id = editor_id join languages l on l.id = b.language_id where b.title ~ $1 order by b.title, a.name, e.name"
+//      stRe :=  "'^" + reStr+".*'"
+	stq := "select b.title, b.comment, b.year, a.name as author, e.name as editor, l.name as language from books b join authors a  on a.id = b.author_id join editors e on e.id = editor_id join languages l on l.id = b.language_id where b.title ~* $1 order by b.title, a.name, e.name"
+//            fmt.Println(stq)
 	       var rows * sql.Rows
-	       rows, err = Db.Query(stq, reStr)
+              rows, err = Db.Query(stq, reStr)
                if err != nil {
                     log.Println(err)
                }else{
@@ -374,7 +402,7 @@ func BookDeleteAll() (err error) {
   func BookAuthTot(Id uint32) (books []BookN, err error) {
         var book BookN
 
-        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and a.id = $1  order by title  "   
+        stq :=  "SELECT b.id, l.name as language, e.name as editor, a.name as author, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b, languages l,  editors e,  authors a where b.language_id = l.id and b.editor_id = e.id and  b.author_id = a.id  and a.id = $1  order by title  "
 
 	rows, err := Db.Query(stq,  Id)
 	if err != nil {
@@ -517,7 +545,7 @@ func BookDeleteAll() (err error) {
 // Get all books in the database and returns the list
   func Books() (books []Book, err error) {
      var book Book
-        stq :=  "SELECT b.id, b.language_id, b.editor_id, b.author_id, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b order by title"  
+        stq :=  "SELECT b.id, b.language_id, b.editor_id, b.author_id, b.title, b.isbn, b.comment, b.year, b.created_at, b.updated_at FROM books b order by title"
 	rows, err := Db.Query(stq)
 	if err != nil {
 		return

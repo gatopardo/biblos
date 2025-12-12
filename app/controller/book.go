@@ -34,8 +34,10 @@ import (
 	var params httprouter.Params
 	sess := model.Instance(r)
 	params      = context.Get(r, "params").(httprouter.Params)
-		rebook      := params.ByName("re")
+        rebook    := params.ByName("re")
+//      rebook     := strToReg(reparam)
 	lisBooks,err    = model.BookByRe(rebook)
+//   fmt.Println("JBookListGET ",lisBooks)
          if err != nil {
               sess.AddFlash(view.Flash{"Error en listado libros ", view.FlashError})
 	      log.Println(err)
@@ -43,6 +45,7 @@ import (
             var js []byte
             js, err =  json.Marshal(lisBooks)
             if err == nil{
+//    fmt.Println(string(js))
                w.Header().Set("Content-Type", "application/json")
                w.Write(js)
 	       return
@@ -60,7 +63,7 @@ import (
         if err != nil {
              sess.AddFlash(view.Flash{"No hay lenguajes ", view.FlashError})
          }
-        var iedits  []model.IEditor
+	       var iedits  []model.IEditor
         iedits, err =  model.IEdits()
         if err != nil {
              sess.AddFlash(view.Flash{"No hay Editoras ", view.FlashError})

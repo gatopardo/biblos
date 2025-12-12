@@ -45,19 +45,44 @@ func (edit * Editor)EditByName() (err error) {
 }
 
 // --------------------------------------------------------
-// EditByRe tenemos el book dado re
-func EditByRe(reStr string) (lsBooks []BookZ, err error) {
-	stq := "select b.title, b.comment, b.year, a.name as author, e.name as editor, l.name as language from books b join authors a  on a.id = b.author_id join editors e on e.id = editor_id join languages l on l.id = b.language_id where e.name ~  $1 order by  e.name,b.title, a.name "
+// EditByRe listar editoras dado reg
+func EditByRe(reStr string) (lsEditors []IEditor, err error) {
+//      stRe :=  "'^" + reStr+".*'"
+	stq := "select e.id, e.name as editor from editors e  where e.name ~*  $1 order by  e.name "
+//	       fmt.Println(stq)
 	       var rows * sql.Rows
-	       rows, err = Db.Query(stq,reStr)
+	       rows, err = Db.Query(stq, reStr)
                if err != nil {
                     log.Println(err)
                }else{
                   defer rows.Close()
                   for rows.Next() {
-			  bib := BookZ{}
-                    err = rows.Scan(&bib.Title, &bib.Comment, &bib.Year, &bib.Author, &bib.Editor, &bib.Language)
+			  edit := IEditor{}
+                    err = rows.Scan(&edit.Id, &edit.Name )
                      if  err != nil {
+			 log.Println( err)
+                          break
+		     }
+                    lsEditors = append(lsEditors, edit)
+	          }
+       }
+	return
+  }
+// --------------------------------------------------------
+// EditBookByRe tenemos id author obtener listado libros
+ func EditBookById(Id uint32) (lsBooks []BookZ, err error) {
+	stq := "select b.title, b.comment, b.year, a.name as author, e.name as editor, l.name as language from books b join authors a  on a.id = b.author_id join editors e on e.id = editor_id join languages l on l.id = b.language_id where e.id = $1 order by  a.name,b.title, e.name "
+//              fmt.Println(stq)
+	       var rows * sql.Rows
+	       rows, err = Db.Query(stq, Id)
+                if err != nil {
+                     log.Println(err)
+                }else{
+                   defer rows.Close()
+                   for rows.Next() {
+			  bib := BookZ{}
+                     err = rows.Scan(&bib.Title, &bib.Comment, &bib.Year, &bib.Author, &bib.Editor, &bib.Language)
+                       if  err != nil {
 			 log.Println( err)
                           break
 		     }
@@ -66,6 +91,7 @@ func EditByRe(reStr string) (lsBooks []BookZ, err error) {
        }
 	return
   }
+
 
 // -----------------------------------------------------
 // EditCreate crear editor

@@ -12,7 +12,7 @@
                 <label for="cuenta">Cuenta</label>
              </div>
 	     <div class="fbox">
-                <input type="text" id="cuenta" name="cuenta" maxlength="48" placeholder="Cuenta" value = "" autofocus />
+                <input type="text" id="cuenta" name="cuenta"size= "32"  maxlength="48" placeholder="Cuenta" value = "" autofocus />
              </div>
             </div>
 
@@ -21,7 +21,7 @@
                 <label for="password">Password</label>
              </div>
 	     <div class="fbox">
-                <input type="password"  id="password" name="password" maxlength="48" placeholder="Password" value="{{.password}}" />
+                <input type="password"  id="password" name="password" size="32" maxlength="48" placeholder="Password" value="{{.password}}" />
              </div>
             </div>
 
@@ -30,7 +30,11 @@
                      <input type="hidden" name="token" value="{{.token}}">
              </div>
 	     <div class="fbox">
-                 <input type="submit" class="btn btn-primary" value="Login" />
+                <span>
+<!--                 <input type="submit" class="btn btn-primary" value="Login" /> -->
+                 <input type="submit" name="action" value="Login" />
+                 <input type="submit" name="action" value="Cancel" />
+                </span>
              </div>
             </div>
 

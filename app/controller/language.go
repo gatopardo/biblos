@@ -20,12 +20,40 @@ import (
 // JLangGET crea datos de libros
  func JLangListGET(w http.ResponseWriter, r *http.Request) {
         var err error
+	var lisLangs []model.ILang
+	var params httprouter.Params
+	sess := model.Instance(r)
+	params      = context.Get(r, "params").(httprouter.Params)
+	relang    := params.ByName("re")
+//      reauth     := strToReg(reparam)
+	lisLangs,err    = model.LangByRe(relang)
+	fmt.Println("JLangListGET ",lisLangs)
+         if err != nil {
+              sess.AddFlash(view.Flash{"Error listado languages ", view.FlashError})
+	      log.Println(err)
+	}else{
+            var js []byte
+            js, err =  json.Marshal(lisLangs)
+            if err == nil{
+              fmt.Println(string(js))
+               w.Header().Set("Content-Type", "application/json")
+               w.Write(js)
+	       return
+            }
+        }
+    }
+// ---------------------------------------------------
+// JLangBookListGET listar libros dado id lang
+ func JLangBookListGET(w http.ResponseWriter, r *http.Request) {
+        var err error
 	var lisBooks []model.BookZ
 	var params httprouter.Params
 	sess := model.Instance(r)
 	params      = context.Get(r, "params").(httprouter.Params)
-	reauth      := params.ByName("re")
-	lisBooks,err    = model.LangByRe(reauth)
+        Id,_ := atoi32(params.ByName("id"))
+
+	lisBooks,err    = model.LangBookById(Id)
+       fmt.Println("JLangBookListGET ",lisBooks)
          if err != nil {
               sess.AddFlash(view.Flash{"Error listado libros ", view.FlashError})
 	      log.Println(err)
@@ -33,6 +61,7 @@ import (
             var js []byte
             js, err =  json.Marshal(lisBooks)
             if err == nil{
+         fmt.Println(string(js))
                w.Header().Set("Content-Type", "application/json")
                w.Write(js)
 	       return
