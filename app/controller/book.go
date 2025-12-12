@@ -34,7 +34,7 @@ import (
 	var params httprouter.Params
 	sess := model.Instance(r)
 	params      = context.Get(r, "params").(httprouter.Params)
-        rebook    := params.ByName("re")
+        rebook     := params.ByName("re")
 //      rebook     := strToReg(reparam)
 	lisBooks,err    = model.BookByRe(rebook)
 //   fmt.Println("JBookListGET ",lisBooks)
@@ -45,7 +45,7 @@ import (
             var js []byte
             js, err =  json.Marshal(lisBooks)
             if err == nil{
-//    fmt.Println(string(js))
+// fmt.Println(string(js))
                w.Header().Set("Content-Type", "application/json")
                w.Write(js)
 	       return

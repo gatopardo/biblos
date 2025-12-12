@@ -34,6 +34,7 @@ const (
         password       := params.ByName("password")
         stEnc, _       := base64.StdEncoding.DecodeString(password)
 //	fmt.Printf("%s %s\n", cuenta, password)
+//      fmt.Printf("JLoginGET %s %s\n", cuenta, password)
         password = string(stEnc)
         var jpers  model.Jperson
         jpers.Cuenta    = cuenta
@@ -55,9 +56,9 @@ const (
 			sess.Values["cuenta"] = cuenta
 			sess.Values["level"] = jpers.Level
                         sess.Save(r, w)
+//         fmt.Println(string(js))
                         w.Header().Set("Content-Type", "application/json")
                         w.Write(js)
-//     fmt.Printf("JLoginGET all well %s\n", js)
 			return
                     }
 	        }
@@ -82,7 +83,6 @@ func loginAttempt(sess *sessions.Session) {
 // LoginGET displays the login page
 func LoginGET(w http.ResponseWriter, r *http.Request) {
 	sess := model.Instance(r)
-
 	v := view.New(r)
 	v.Name = "login/login"
 	v.Vars["token"] = csrfbanana.Token(w, r, sess)
